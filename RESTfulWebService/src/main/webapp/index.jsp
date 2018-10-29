@@ -1,8 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Car Hire Booking Service</title>
+</head>
 <body>
-    <h2>Jersey RESTful Web Application!</h2>
-    <p><a href="webapi/myresource">Jersey resource</a>
-    <p>Visit <a href="http://jersey.java.net">Project Jersey website</a>
-    for more information on Jersey!
+	<h1>Car Hire Booking Service</h1>
+	<input type="BUTTON" value="Create Booking" />
+	<input type="BUTTON" value="View/Modify/Delete Existing Booking" />
 </body>
 </html>
