@@ -7,6 +7,6 @@
 <title>Manage Booking</title>
 </head>
 <body>
-
+<h1>Manage Booking</h1>
 </body>
 </html>
