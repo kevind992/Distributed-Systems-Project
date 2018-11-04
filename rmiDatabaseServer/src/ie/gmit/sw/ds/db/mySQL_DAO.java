@@ -1,5 +1,6 @@
 package ie.gmit.sw.ds.db;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -11,7 +12,7 @@ import ie.gmit.sw.ds.models.Accounts;
 
 public class mySQL_DAO {
 
-	public ArrayList<Accounts> getAccounts() {
+	public ArrayList<Accounts> getAccounts() throws RemoteException {
 
 		ArrayList<Accounts> accList = new ArrayList<>();
 
@@ -26,18 +27,16 @@ public class mySQL_DAO {
 
 			ResultSet rset = stmt.executeQuery(strSelect);
 
-			int rowCount = 0;
+			
 			while (rset.next()) { // Move the cursor to the next row, return false if no more row
 
 				Accounts acc = new Accounts();
 
-				acc.setAcc_no(rset.getInt("acc_no"));
+				acc.setAcc_no(Integer.toString(rset.getInt("acc_no")));
 				acc.setF_name(rset.getString("first_name"));
 				acc.setSurname(rset.getString("surname"));
 				acc.setDob(rset.getString("dob"));
 				acc.setAddress(rset.getString("address"));
-
-				++rowCount;
 
 				accList.add(acc);
 			}

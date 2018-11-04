@@ -5,25 +5,26 @@ import java.rmi.RemoteException;
 
 public class Accounts implements Serializable{
 
-	
 	public Accounts() throws RemoteException {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	private static final long serialVersionUID = 1L;
 	
-	private String acc_no;
+	private int acc_no;
 	private String f_name;
 	private String surname;
 	private String dob;
 	private String address;
+	
+	
 
-
-	public String getAcc_no() {
+	public int getAcc_no() {
 		return acc_no;
 	}
 
-	public void setAcc_no(String acc_no) {
+	public void setAcc_no(int acc_no) {
 		this.acc_no = acc_no;
 	}
 

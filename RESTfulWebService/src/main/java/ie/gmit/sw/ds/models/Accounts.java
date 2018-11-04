@@ -3,21 +3,34 @@ package ie.gmit.sw.ds.models;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public class Accounts implements Serializable{
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
-	
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Accounts", namespace = "http://sw.gmit.ie/models/", propOrder = { "acc_no", "f_name", "surname", "dob",
+		"address" })
+
+public class Accounts implements Serializable {
+
 	public Accounts() throws RemoteException {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	private static final long serialVersionUID = 1L;
-	
-	private String acc_no;
-	private String f_name;
-	private String surname;
-	private String dob;
-	private String address;
 
+	@XmlElement(namespace = "http://sw.gmit.ie/models/", required = true)
+	private String acc_no;
+	@XmlElement(namespace = "http://sw.gmit.ie/models/", required = true)
+	private String f_name;
+	@XmlElement(namespace = "http://sw.gmit.ie/models/", required = true)
+	private String surname;
+	@XmlElement(namespace = "http://sw.gmit.ie/models/", required = true)
+	private String dob;
+	@XmlElement(namespace = "http://sw.gmit.ie/models/", required = true)
+	private String address;
 
 	public String getAcc_no() {
 		return acc_no;

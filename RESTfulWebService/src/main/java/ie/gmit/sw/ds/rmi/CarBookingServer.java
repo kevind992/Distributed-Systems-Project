@@ -1,12 +1,15 @@
 package ie.gmit.sw.ds.rmi;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+
 import ie.gmit.sw.ds.models.Accounts;
 
 
-public interface RMI_Server extends Remote{
+public interface CarBookingServer extends Remote{
 
 	public ArrayList<Accounts> getFileNames() throws RemoteException;
 	
 }
+
