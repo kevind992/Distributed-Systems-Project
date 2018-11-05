@@ -32,8 +32,8 @@ public class mySQL_DAO {
 
 				Accounts acc = new Accounts();
 
-				acc.setAcc_no(Integer.toString(rset.getInt("acc_no")));
-				acc.setF_name(rset.getString("first_name"));
+				acc.setAccNo(Integer.toString(rset.getInt("acc_no")));
+				acc.setFName(rset.getString("first_name"));
 				acc.setSurname(rset.getString("surname"));
 				acc.setDob(rset.getString("dob"));
 				acc.setAddress(rset.getString("address"));

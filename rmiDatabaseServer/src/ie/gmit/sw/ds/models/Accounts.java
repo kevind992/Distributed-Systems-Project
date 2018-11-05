@@ -1,61 +1,68 @@
 package ie.gmit.sw.ds.models;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
+
+
+
+
 
 public class Accounts implements Serializable{
 
-	
-	public Accounts() throws RemoteException {
-		super();
-	}
-
+    
 	private static final long serialVersionUID = 1L;
 	
-	private String acc_no;
-	private String f_name;
-	private String surname;
-	private String dob;
-	private String address;
+    protected String accNo;
+    protected String fName;
+    protected String surname;
+    protected String dob;
+    protected String address;
 
+    
+    public String getAccNo() {
+        return accNo;
+    }
 
-	public String getAcc_no() {
-		return acc_no;
-	}
+    
+    public void setAccNo(String value) {
+        this.accNo = value;
+    }
 
-	public void setAcc_no(String acc_no) {
-		this.acc_no = acc_no;
-	}
+    
+    public String getFName() {
+        return fName;
+    }
 
-	public String getF_name() {
-		return f_name;
-	}
+   
+    public void setFName(String value) {
+        this.fName = value;
+    }
 
-	public void setF_name(String f_name) {
-		this.f_name = f_name;
-	}
+    
+    public String getSurname() {
+        return surname;
+    }
 
-	public String getSurname() {
-		return surname;
-	}
+    
+    public void setSurname(String value) {
+        this.surname = value;
+    }
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
+    
+    public String getDob() {
+        return dob;
+    }
 
-	public String getDob() {
-		return dob;
-	}
+    
+    public void setDob(String value) {
+        this.dob = value;
+    }
 
-	public void setDob(String dob) {
-		this.dob = dob;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    
+    public void setAddress(String value) {
+        this.address = value;
+    }
 }

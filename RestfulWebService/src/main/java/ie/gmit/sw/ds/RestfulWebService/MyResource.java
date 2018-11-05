@@ -3,6 +3,7 @@ package ie.gmit.sw.ds.RestfulWebService;
 import java.io.StringWriter;
 import java.util.ArrayList;
 
+import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -16,6 +17,7 @@ import javax.xml.bind.Marshaller;
 import ie.gmit.sw.ds.models.Accounts;
 import ie.gmit.sw.ds.rmi.rmiClient;
 
+@Singleton
 @Path("/createbooking")
 public class MyResource {
 
@@ -31,8 +33,7 @@ public class MyResource {
 		
 		for (Accounts a : acc) {
 			System.out.println(a);
-			if (a.getAcc_no().equals(value)) {
-				
+			if (a.getAccNo().equals(value)) {
 				requested = a;
 			}
 		}
@@ -51,7 +52,8 @@ public class MyResource {
 		StringWriter sw = new StringWriter();
 		Marshaller m;
 		try {
-			JAXBContext jc = JAXBContext.newInstance("ie.gmit.sw.ds");
+			System.out.println("trying..");
+			JAXBContext jc = JAXBContext.newInstance("ie.gmit.sw.ds.models");
 			m = jc.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			m.marshal(po, sw);
@@ -59,6 +61,7 @@ public class MyResource {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(sw.toString());
 		return sw.toString();
 	}
 }
