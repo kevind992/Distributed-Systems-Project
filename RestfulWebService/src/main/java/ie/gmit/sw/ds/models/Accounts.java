@@ -23,12 +23,16 @@ public class Accounts implements Serializable {
 
 	@XmlElement(namespace = "http://sw.gmit.ie/models/", required = true)
 	private String acc_no;
+	
 	@XmlElement(namespace = "http://sw.gmit.ie/models/", required = true)
 	private String f_name;
+	
 	@XmlElement(namespace = "http://sw.gmit.ie/models/", required = true)
 	private String surname;
+	
 	@XmlElement(namespace = "http://sw.gmit.ie/models/", required = true)
 	private String dob;
+	
 	@XmlElement(namespace = "http://sw.gmit.ie/models/", required = true)
 	private String address;
 

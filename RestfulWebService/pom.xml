@@ -3,14 +3,14 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ie.gmit.sw</groupId>
-    <artifactId>RESTfulWebService</artifactId>
+    <groupId>ie.gmit.sw.ds</groupId>
+    <artifactId>RestfulWebService</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>RESTfulWebService</name>
+    <name>RestfulWebService</name>
 
     <build>
-        <finalName>RESTfulWebService</finalName>
+        <finalName>RestfulWebService</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -41,8 +41,10 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet-core</artifactId>
-            
+            <!-- use the following artifactId if you don't need servlet 2.x compatibility -->
+            <!-- artifactId>jersey-container-servlet</artifactId -->
         </dependency>
+        
         <!-- uncomment this to get JSON support
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>

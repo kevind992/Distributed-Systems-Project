@@ -1,4 +1,4 @@
-package ie.gmit.sw.RESTfulWebService;
+package ie.gmit.sw.ds.RestfulWebService;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import ie.gmit.sw.ds.models.Accounts;
 import ie.gmit.sw.ds.rmi.rmiClient;
 
 @Path("/createbooking")
-public class MyController {
+public class MyResource {
 
 	private ArrayList<Accounts> acc = new ArrayList<>();
 	
