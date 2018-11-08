@@ -5,9 +5,10 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import ie.gmit.sw.ds.models.Accounts;
+import ie.gmit.sw.ds.models.Rentals;
 
 public interface CarBookingServer extends Remote{
 
-	public ArrayList<Accounts> getFileNames() throws RemoteException;
+	public ArrayList<Rentals> getRentals() throws RemoteException;
 	
 }

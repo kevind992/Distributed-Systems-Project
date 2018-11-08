@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import ie.gmit.sw.ds.db.mySQL_DAO;
 import ie.gmit.sw.ds.models.Accounts;
+import ie.gmit.sw.ds.models.Rentals;
 
 public class CarBookingServerImpl extends UnicastRemoteObject implements CarBookingServer {
 
@@ -16,14 +17,13 @@ public class CarBookingServerImpl extends UnicastRemoteObject implements CarBook
 	}
 	
 	@Override
-	public ArrayList<Accounts> getFileNames() throws RemoteException {
+	public ArrayList<Rentals> getRentals() throws RemoteException {
 		
-		ArrayList<Accounts> acc = new ArrayList<>();
+		ArrayList<Rentals> acc = new ArrayList<>();
 		
-		acc = new mySQL_DAO().getAccounts();
+		acc = new mySQL_DAO().getRental();
 		
 		return acc;
 			
 	}
-
 }

@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gmit="http://ds.sw.gmit.ie/models/" targetNamespace="http://ds.sw.gmit.ie/models/" elementFormDefault="qualified">
-  
-  <xsd:complexType name='Accounts'>
-      <xsd:sequence>
-        <xsd:element name='accNo'   type='xsd:string'/>
-        <xsd:element name='fname' type='xsd:string'/>
-        <xsd:element name='surname'   type='xsd:string'/>
-        <xsd:element name='dob'  type='xsd:string'/>
-        <xsd:element name='address'  type='xsd:string'/>
-      </xsd:sequence>
-    </xsd:complexType>
-</xsd:schema>  
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ds.sw.gmit.ie/models/"
+ xmlns:tns="http://ds.sw.gmit.ie/models/" elementFormDefault="qualified">
+
+<element name="rentals">
+	<complexType>
+		<sequence>
+			<element name="id" type="int"/>
+			<element name="rentalDate" type="string"/>
+			<element name="returnDate" type="string"/>	
+			<element name="accounts" type="tns:accounts"/>
+			<element name="cars" type="tns:cars"/>
+		</sequence>
+		
+	</complexType>
+</element>
+   
+<complexType name="accounts">
+	<sequence>
+		<element name="acc_no" type="string"/>
+		<element name="fname" type="string"/>
+		<element name="surname" type="string"/>
+		<element name="dob" type="string"/>
+		<element name="address" type="string"/>
+	</sequence>
+</complexType> 
+
+<complexType name="cars">
+	<sequence>
+		<element name="carMake" type="string"/>
+		<element name="carModel" type="string"/>
+		<element name="carReg" type="string"/>
+		<element name="carSize" type="string"/>
+		<element name="fuelType" type="string"/>
+		<element name="rentalId" type="int"/>
+		<element name="seats" type="int"/>
+		<element name="transmission" type="string"/>
+	</sequence>
+</complexType>
+</schema>

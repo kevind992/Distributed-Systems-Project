@@ -9,12 +9,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import ie.gmit.sw.ds.models.Accounts;
+import ie.gmit.sw.ds.models.Cars;
+import ie.gmit.sw.ds.models.Rentals;
 
 public class mySQL_DAO {
 
-	public ArrayList<Accounts> getAccounts() throws RemoteException {
+	public ArrayList<Rentals> getRental() throws RemoteException {
 
-		ArrayList<Accounts> accList = new ArrayList<>();
+		ArrayList<Rentals> rentalList = new ArrayList<>();
 
 		try (
 
@@ -23,29 +25,39 @@ public class mySQL_DAO {
 
 				Statement stmt = conn.createStatement();) {
 
-			String strSelect = "select acc_no, first_name, surname, dob, address  from accounts";
+			String strSelect = "select a.first_name, a.surname, a.dob, a.address, "
+					+ "c.car_make, c.car_model, r.rental_date, r.return_date from rentals r "
+					+ "inner join accounts a on r.acc_no = a.acc_no inner join cars c "
+					+ "on r.rental_id = c.rental_id;";
 
 			ResultSet rset = stmt.executeQuery(strSelect);
 
 			
 			while (rset.next()) { // Move the cursor to the next row, return false if no more row
 
-				Accounts acc = new Accounts();
+				Rentals rental = new Rentals();
+				Accounts accounts = new Accounts();
+				Cars cars = new Cars();
 
-				acc.setAccNo(Integer.toString(rset.getInt("acc_no")));
-				acc.setFName(rset.getString("first_name"));
-				acc.setSurname(rset.getString("surname"));
-				acc.setDob(rset.getString("dob"));
-				acc.setAddress(rset.getString("address"));
+				accounts.setFname(rset.getString("first_name"));
+				accounts.setSurname(rset.getString("surname"));
+				accounts.setDob(rset.getString("dob"));
+				accounts.setAddress(rset.getString("address"));
+				cars.setCarMake(rset.getString("car_make"));
+				cars.setCarMake(rset.getString("car_model"));
+				rental.setRentalDate(rset.getString("rental_date"));
+				rental.setReturnDate(rset.getString("return_date"));
+				rental.setAccounts(accounts);
+				rental.setCars(cars);
 
-				accList.add(acc);
+				rentalList.add(rental);
 			}
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
-
-		return accList;
+		System.out.println("Data successfully pull from db..");
+		return rentalList;
 	}
 
 }

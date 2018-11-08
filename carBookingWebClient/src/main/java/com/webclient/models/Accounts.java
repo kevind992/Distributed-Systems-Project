@@ -6,7 +6,7 @@
 //
 
 
-package ie.gmit.sw.ds.models;
+package com.webclient.models;
 
 import java.io.Serializable;
 

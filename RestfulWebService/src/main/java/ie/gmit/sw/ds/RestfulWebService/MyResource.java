@@ -15,13 +15,14 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import ie.gmit.sw.ds.models.Accounts;
+import ie.gmit.sw.ds.models.Rentals;
 import ie.gmit.sw.ds.rmi.rmiClient;
 
 @Singleton
 @Path("/createbooking")
 public class MyResource {
 
-	private ArrayList<Accounts> acc = new ArrayList<>();
+	private ArrayList<Rentals> acc = new ArrayList<>();
 	
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
@@ -29,25 +30,29 @@ public class MyResource {
 	public Response getOrder(@PathParam("value") String value) throws Exception {
         System.out.println("here..");
 		acc = new rmiClient().getData();
-		Accounts requested = null;
+		Rentals requested = null;
 		
-		for (Accounts a : acc) {
+		String testValue = "1001";
+		
+		for (Rentals a : acc) {
 			System.out.println(a);
-			if (a.getAccNo().equals(value)) {
+			if (testValue.equals(value)) {
 				requested = a;
 			}
 		}
 		
 		if (requested == null) {
+			System.out.println("if");
 			String msg = "The requested order does not exist";
 			return Response.status(404).entity(msg).build();
 		} else {
+			System.out.println("else");
 			String msg = getOrderAsXML(requested);
 			return Response.status(200).entity(msg).build();
 		}
     }
 	
-	private String getOrderAsXML(Accounts po) {
+	private String getOrderAsXML(Rentals po) {
 		// Marshal the PurchaseOrder into XML
 		StringWriter sw = new StringWriter();
 		Marshaller m;

@@ -13,7 +13,7 @@ public class CarBookingServerStartup {
 		
 		LocateRegistry.createRegistry(1099);
 		
-		Naming.rebind("carbooking2", cbs);
+		Naming.rebind("databaseservice", cbs);
 		
 		System.out.println("Server Running..");
 	}
