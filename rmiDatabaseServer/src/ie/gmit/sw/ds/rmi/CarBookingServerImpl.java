@@ -26,4 +26,16 @@ public class CarBookingServerImpl extends UnicastRemoteObject implements CarBook
 		return acc;
 			
 	}
+	
+	@Override
+	public Boolean createAccount(Rentals rentals) throws RemoteException{
+			
+		Boolean response = new mySQL_DAO().createAccount(rentals);
+		
+		if(response) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

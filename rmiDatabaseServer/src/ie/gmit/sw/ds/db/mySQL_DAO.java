@@ -13,6 +13,8 @@ import ie.gmit.sw.ds.models.Cars;
 import ie.gmit.sw.ds.models.Rentals;
 
 public class mySQL_DAO implements mySQLDAOInterface {
+	
+	private String url = "jdbc:mysql://localhost:3306/car_rental_booking_db?useSSL=false";
 
 	public ArrayList<Rentals> getRental() throws RemoteException {
 
@@ -20,10 +22,10 @@ public class mySQL_DAO implements mySQLDAOInterface {
 
 		try (
 
-				Connection conn = DriverManager
-						.getConnection("jdbc:mysql://localhost:3306/car_rental_booking_db?useSSL=false", "root", "");
+				Connection conn = DriverManager.getConnection(url, "root", "");
 
-				Statement stmt = conn.createStatement();) {
+				Statement stmt = conn.createStatement();)
+		{
 
 			String strSelect = "select a.acc_no , a.first_name, a.surname, a.dob, a.address, "
 					+ "c.car_make, c.car_model, r.rental_date, r.return_date from rentals r "
@@ -59,6 +61,33 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		}
 		System.out.println("Data successfully pull from db..");
 		return rentalList;
+	}
+	
+	public Boolean createAccount(Rentals a) {
+		
+		try (
+
+				Connection conn = DriverManager.getConnection(url, "root", "");
+
+				Statement stmt = conn.createStatement();)
+		{
+			
+			// INSERT a record
+	         String sqlInsert = "insert into accounts " // need a space
+	               + "values ('"+a.getAccounts().getAccNo() + "','" + a.getAccounts().getFname() + "','" 
+	        		 + a.getAccounts().getSurname() + "','" + a.getAccounts().getDob() 
+	               + "','" + a.getAccounts().getAddress() + "');";
+	         
+	         System.out.println("The SQL query is: " + sqlInsert);  // Echo for debugging
+	         int countInserted = stmt.executeUpdate(sqlInsert);
+	         
+	         System.out.println(countInserted + " records inserted.\n");
+	         
+	         return true;
+	         
+		}catch (Exception e) {
+			return false;
+		}
 	}
 
 }
