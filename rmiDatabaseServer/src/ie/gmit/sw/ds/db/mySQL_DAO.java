@@ -12,7 +12,7 @@ import ie.gmit.sw.ds.models.Accounts;
 import ie.gmit.sw.ds.models.Cars;
 import ie.gmit.sw.ds.models.Rentals;
 
-public class mySQL_DAO {
+public class mySQL_DAO implements mySQLDAOInterface {
 
 	public ArrayList<Rentals> getRental() throws RemoteException {
 
@@ -25,7 +25,7 @@ public class mySQL_DAO {
 
 				Statement stmt = conn.createStatement();) {
 
-			String strSelect = "select a.first_name, a.surname, a.dob, a.address, "
+			String strSelect = "select a.acc_no , a.first_name, a.surname, a.dob, a.address, "
 					+ "c.car_make, c.car_model, r.rental_date, r.return_date from rentals r "
 					+ "inner join accounts a on r.acc_no = a.acc_no inner join cars c "
 					+ "on r.rental_id = c.rental_id;";
@@ -39,6 +39,7 @@ public class mySQL_DAO {
 				Accounts accounts = new Accounts();
 				Cars cars = new Cars();
 
+				accounts.setAccNo(String.valueOf(rset.getString("acc_no")));
 				accounts.setFname(rset.getString("first_name"));
 				accounts.setSurname(rset.getString("surname"));
 				accounts.setDob(rset.getString("dob"));
