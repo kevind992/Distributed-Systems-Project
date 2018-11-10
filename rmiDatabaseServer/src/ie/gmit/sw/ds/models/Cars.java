@@ -14,6 +14,7 @@ public class Cars implements Serializable{
 	private int seats;
 	private String transmission;
 	private String carSize;
+	private Boolean carRented;
 	
 	
 	public Cars() {
@@ -99,4 +100,15 @@ public class Cars implements Serializable{
 	public void setCarSize(String carSize) {
 		this.carSize = carSize;
 	}
+
+
+	public Boolean getCarRented() {
+		return carRented;
+	}
+
+
+	public void setCarRented(Boolean carRented) {
+		this.carRented = carRented;
+	}
+	
 }

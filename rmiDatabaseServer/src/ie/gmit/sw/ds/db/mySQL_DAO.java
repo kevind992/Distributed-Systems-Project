@@ -23,10 +23,8 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		try (
 
 				Connection conn = DriverManager.getConnection(url, "root", "");
-
 				Statement stmt = conn.createStatement();)
 		{
-
 			String strSelect = "select a.acc_no , a.first_name, a.surname, a.dob, a.address, "
 					+ "c.car_make, c.car_model, r.rental_date, r.return_date from rentals r "
 					+ "inner join accounts a on r.acc_no = a.acc_no inner join cars c "
@@ -34,14 +32,13 @@ public class mySQL_DAO implements mySQLDAOInterface {
 
 			ResultSet rset = stmt.executeQuery(strSelect);
 
-			
 			while (rset.next()) { // Move the cursor to the next row, return false if no more row
 
 				Rentals rental = new Rentals();
 				Accounts accounts = new Accounts();
 				Cars cars = new Cars();
 
-				accounts.setAccNo(String.valueOf(rset.getString("acc_no")));
+				accounts.setAccNo(String.valueOf(rset.getInt("acc_no")));
 				accounts.setFname(rset.getString("first_name"));
 				accounts.setSurname(rset.getString("surname"));
 				accounts.setDob(rset.getString("dob"));
@@ -89,5 +86,39 @@ public class mySQL_DAO implements mySQLDAOInterface {
 			return false;
 		}
 	}
+	
+	public ArrayList<Cars> getCars() throws RemoteException{
+		
+		ArrayList<Cars> carsList = new ArrayList<>();
+		
+		try (
+				Connection conn = DriverManager.getConnection(url, "root", "");
+				Statement stmt = conn.createStatement();)
+		{
 
+			String strSelect = "select * from cars ";
+			ResultSet rset = stmt.executeQuery(strSelect);
+
+			while (rset.next()) { // Move the cursor to the next row, return false if no more row				
+				Cars cars = new Cars();
+
+				cars.setRentalId(rset.getInt("rental_id"));
+				cars.setCarReg(rset.getString("car_reg"));
+				cars.setCarMake(rset.getString("car_make"));
+				cars.setCarModel(rset.getString("car_model"));
+				cars.setFuelType(rset.getString("fuel_type"));
+				cars.setSeats(rset.getInt("seats"));
+				cars.setTransmission(rset.getString("tranmission"));
+				cars.setCarSize(rset.getString("car_size"));
+				cars.setCarRented(rset.getBoolean("car_rented"));
+
+				carsList.add(cars);
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		System.out.println("Data successfully pulled from db..");
+		return carsList;
+	}
 }
