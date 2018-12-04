@@ -41,4 +41,10 @@ public class CarBookingServerImpl extends UnicastRemoteObject implements CarBook
 	public Rentals getAllCars() throws RemoteException {
 		return new mySQL_DAO().getCars();
 	}
+
+	@Override
+	public void createRental(Rentals rental) throws RemoteException {
+		// TODO Auto-generated method stub
+		new mySQL_DAO().createRental(rental);
+	}
 }

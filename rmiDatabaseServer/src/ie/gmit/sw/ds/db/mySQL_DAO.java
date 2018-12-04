@@ -13,7 +13,7 @@ import ie.gmit.sw.ds.models.Cars;
 import ie.gmit.sw.ds.models.Rentals;
 
 public class mySQL_DAO implements mySQLDAOInterface {
-	
+
 	private String url = "jdbc:mysql://localhost:3306/car_rental_booking_db?useSSL=false";
 
 	public ArrayList<Rentals> getRental() throws RemoteException {
@@ -23,8 +23,7 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		try (
 
 				Connection conn = DriverManager.getConnection(url, "root", "");
-				Statement stmt = conn.createStatement();)
-		{
+				Statement stmt = conn.createStatement();) {
 			String strSelect = "select a.acc_no , a.first_name, a.surname, a.dob, a.address, "
 					+ "c.car_make, c.car_model, r.rental_date, r.return_date from rentals r "
 					+ "inner join accounts a on r.acc_no = a.acc_no inner join cars c "
@@ -59,48 +58,68 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		System.out.println("Data successfully pull from db..");
 		return rentalList;
 	}
-	
+
 	public Boolean createAccount(Rentals a) {
-		
+
 		try (
 
 				Connection conn = DriverManager.getConnection(url, "root", "");
 
-				Statement stmt = conn.createStatement();)
-		{
-			
+				Statement stmt = conn.createStatement();) {
+
 			// INSERT a record
-	         String sqlInsert = "insert into accounts " // need a space
-	               + "values ('"+a.getAccounts().getAccNo() + "','" + a.getAccounts().getFname() + "','" 
-	        		 + a.getAccounts().getSurname() + "','" + a.getAccounts().getDob() 
-	               + "','" + a.getAccounts().getAddress() + "');";
-	         
-	         System.out.println("The SQL query is: " + sqlInsert);  // Echo for debugging
-	         int countInserted = stmt.executeUpdate(sqlInsert);
-	         
-	         System.out.println(countInserted + " records inserted.\n");
-	         
-	         return true;
-	         
-		}catch (Exception e) {
+			String sqlInsert = "insert into accounts " // need a space
+					+ "values ('" + a.getAccounts().getAccNo() + "','" + a.getAccounts().getFname() + "','"
+					+ a.getAccounts().getSurname() + "','" + a.getAccounts().getDob() + "','"
+					+ a.getAccounts().getAddress() + "');";
+
+			System.out.println("The SQL query is: " + sqlInsert); // Echo for debugging
+			int countInserted = stmt.executeUpdate(sqlInsert);
+
+			System.out.println(countInserted + " records inserted.\n");
+
+			return true;
+
+		} catch (Exception e) {
 			return false;
 		}
 	}
-	
-	public Rentals getCars() throws RemoteException{
-		
-		Rentals rentals = new Rentals();
-		//ArrayList<Cars> carsList = new ArrayList<>();
+
+	public void createRental(Rentals rental) {
 		
 		try (
+
 				Connection conn = DriverManager.getConnection(url, "root", "");
-				Statement stmt = conn.createStatement();)
-		{
+
+				Statement stmt = conn.createStatement();) {
+
+			// INSERT a record
+			String sqlInsert = "insert into rentals " // need a space
+					+ "values ('46','" + rental.getCars().get(0).getRentalId() + "','" 
+					+ rental.getAccounts().getAccNo() + "','"
+					+ rental.getRentalDate() + "','" + rental.getReturnDate() + "');";
+
+			System.out.println("The SQL query is: " + sqlInsert); // Echo for debugging
+			int countInserted = stmt.executeUpdate(sqlInsert);
+
+			System.out.println(countInserted + " records inserted.\n");
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public Rentals getCars() throws RemoteException {
+
+		Rentals rentals = new Rentals();
+		// ArrayList<Cars> carsList = new ArrayList<>();
+
+		try (Connection conn = DriverManager.getConnection(url, "root", ""); Statement stmt = conn.createStatement();) {
 
 			String strSelect = "select * from cars ";
 			ResultSet rset = stmt.executeQuery(strSelect);
 
-			while (rset.next()) { // Move the cursor to the next row, return false if no more row				
+			while (rset.next()) { // Move the cursor to the next row, return false if no more row
 				Cars cars = new Cars();
 
 				cars.setRentalId(rset.getInt("rental_id"));
@@ -111,7 +130,7 @@ public class mySQL_DAO implements mySQLDAOInterface {
 				cars.setSeats(rset.getInt("seats"));
 				cars.setTransmission(rset.getString("transmission"));
 				cars.setCarSize(rset.getString("car_size"));
-				//cars.setCarRented(rset.getBoolean("car_rented"));
+				// cars.setCarRented(rset.getBoolean("car_rented"));
 
 				rentals.getCars().add(cars);
 			}

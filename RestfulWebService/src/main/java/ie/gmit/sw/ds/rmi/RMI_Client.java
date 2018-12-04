@@ -36,4 +36,8 @@ public class RMI_Client {
 	public Rentals getAllCars() throws RemoteException{
 		return cbs.getAllCars();
 	}
+	
+	public void createRental(Rentals rental) throws RemoteException{
+		cbs.createRental(rental);
+	}
 }

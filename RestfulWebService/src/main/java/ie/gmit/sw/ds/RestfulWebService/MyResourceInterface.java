@@ -28,6 +28,12 @@ public interface MyResourceInterface {
 	@Path("/{value}")
 	public Response createAccount(@PathParam("value") String value, Rentals toCreate) throws RemoteException 
 	, MalformedURLException, NotBoundException;
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_XML)
+	@Path("/createrental")
+	public void createRental(Rentals toCreate) throws RemoteException 
+	, MalformedURLException, NotBoundException;
 
 	@GET
 	@Produces({MediaType.APPLICATION_XML})

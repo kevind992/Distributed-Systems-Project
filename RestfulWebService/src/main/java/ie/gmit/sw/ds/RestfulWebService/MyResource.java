@@ -4,12 +4,9 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
-
-import ie.gmit.sw.ds.models.Cars;
 import ie.gmit.sw.ds.models.Rentals;
 import ie.gmit.sw.ds.rmi.RMI_Client;
 
@@ -72,8 +69,11 @@ public class MyResource implements MyResourceInterface {
 		}
 	}
 
-	@Override
 	public Rentals getAllCars() throws Exception {
 		return new RMI_Client().getAllCars();
+	}
+
+	public void createRental(Rentals toCreate) throws RemoteException, MalformedURLException, NotBoundException {
+		new RMI_Client().createRental(toCreate);
 	}
 }

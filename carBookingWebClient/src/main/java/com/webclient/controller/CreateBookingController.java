@@ -58,7 +58,7 @@ public class CreateBookingController {
 			return "createAccount";
 		} else {
 			//sent the new rental to the jersey application
-			//new HTTP_Requests().createAccount(rentals);
+			new HTTP_Requests().createRental(rentals);
 			System.out.println("Rental created..");
 			// return showShips.jsp
 			return "redirect:/";

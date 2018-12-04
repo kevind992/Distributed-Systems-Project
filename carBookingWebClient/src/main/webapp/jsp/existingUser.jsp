@@ -11,7 +11,7 @@
 </head>
 <body>
 	<h1>Car Hire - Create Booking</h1>
-	<form:form modelAttribute="rentals">
+	<form:form modelAttribute="rentals" varStatus="vs">
  		<table>
 			<tr>
 				<td>Account No:</td>
@@ -27,7 +27,7 @@
 			</tr>
 			<tr>
 				<td>Select Car:</td>
-				<td><form:select path="" items="${carList}" /></td>
+				<td><form:select path="cars[0].rentalId" items="${carList}" /></td>
 			</tr>
 			<tr>
 				<td colspan="2">

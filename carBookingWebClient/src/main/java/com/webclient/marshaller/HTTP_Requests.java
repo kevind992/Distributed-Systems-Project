@@ -68,15 +68,50 @@ public class HTTP_Requests {
 	}
 
 	public void createAccount(Rentals rentals) {
+		makePostRequest(rentals, rentals.getAccounts().getAccNo());
+	}
 
-		requestedOrder = rentals.getAccounts().getAccNo();
-		System.out.println("Request No: " + requestedOrder);
+	public Rentals getAllCars() {
+		return makeGetRequest("getcars");
+	}
 
-		String str = getOrderAsXML(rentals);
+	public void createRental(Rentals rental) {
+		makePostRequest(rental, "createrental");
+	}
+	
+	public Rentals makeGetRequest(String request) {
+		
+		Rentals rental = new Rentals();
+		
+		// try to create a connection and request XML format
+		try {
+			url = new URL(resourceBaseURL + request);
+			con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Accept", "application/xml");
+			InputStream in = con.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			resultInXml = br.lines().collect(Collectors.joining());
+			con.disconnect();
+			
+			rental = new HTTP_Requests().getPoFromXml(resultInXml);
+			
+			return rental;
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public void makePostRequest(Rentals rental, String request) {
+		
+		String str = getOrderAsXML(rental);
 
 		try {
 
-			url = new URL(resourceBaseURL + requestedOrder);
+			url = new URL(resourceBaseURL + request);
 			con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("POST");
 			con.setRequestProperty("Content-Type", "application/xml");
@@ -89,7 +124,7 @@ public class HTTP_Requests {
 			con.disconnect();
 
 			int responseCode = con.getResponseCode();
-			System.out.println("POST Response Code :: " + responseCode);
+			System.out.println("POST Response Code : " + responseCode);
 
 			if (responseCode == HttpURLConnection.HTTP_OK) { // success
 				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -104,7 +139,7 @@ public class HTTP_Requests {
 				// print result
 				System.out.println(response.toString());
 			} else {
-				System.out.println("POST request not worked");
+				System.out.println("request not worked");
 			}
 
 		} catch (IOException e) {
@@ -112,33 +147,6 @@ public class HTTP_Requests {
 			System.out.println("Error Sending..");
 			e.printStackTrace();
 		}
-	}
-
-	public Rentals getAllCars() {
-		
-		Rentals rentals = new Rentals();
-
-		// try to create a connection and request XML format
-		try {
-			url = new URL(resourceBaseURL + "getcars");
-			con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("GET");
-			con.setRequestProperty("Accept", "application/xml");
-			InputStream in = con.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			resultInXml = br.lines().collect(Collectors.joining());
-			con.disconnect();
-
-			rentals = new HTTP_Requests().getPoFromXml(resultInXml);
-			
-			return rentals;
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		
 	}
 	
 	public Rentals getPoFromXml(String input) {
