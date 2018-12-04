@@ -32,7 +32,6 @@ public class HTTP_Requests {
 	private Rentals rentals;
 
 	private String resourceBaseURL = "http://localhost:8080/RestfulWebService/webapi/createbooking/";
-	private String requestedOrder;
 	private URL url;
 	private HttpURLConnection con;
 	private String resultInXml = "";
@@ -41,30 +40,8 @@ public class HTTP_Requests {
 		super();
 	}
 
-	public void getRentals() {
-
-		Rentals rentals = new Rentals();
-
-		// try to create a connection and request XML format
-		try {
-			url = new URL(resourceBaseURL + requestedOrder);
-			con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("GET");
-			con.setRequestProperty("Accept", "application/xml");
-			InputStream in = con.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			resultInXml = br.lines().collect(Collectors.joining());
-			con.disconnect();
-
-			rentals = new HTTP_Requests().getPoFromXml(resultInXml);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		System.out.println(rentals.getAccounts().getFname() + " " + rentals.getAccounts().getSurname());
-
+	public Rentals getRentals(String request) {
+		return makeGetRequest(request);
 	}
 
 	public void createAccount(Rentals rentals) {

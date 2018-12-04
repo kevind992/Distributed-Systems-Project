@@ -21,7 +21,7 @@ import com.webclient.models.Rentals;
 public class CreateBookingController {
 
 	@RequestMapping("/createbooking")
-	public String index() {
+	public String showBookingOptions() {
 		return "createbooking";
 	}
 

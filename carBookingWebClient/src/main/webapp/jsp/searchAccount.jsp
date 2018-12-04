@@ -7,9 +7,24 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Manage Booking</title>
+<title>Insert title here</title>
 </head>
 <body>
-	
+	<h1>Manage Booking</h1>
+	<h4>Please Enter your Account Number</h4>
+	<br>
+	<form:form modelAttribute="rentals">
+		<table>
+			<tr>
+				<td>Account No:</td>
+				<td><form:input path="accounts.accNo"></form:input></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="Search Account"/>
+				</td>
+			</tr>
+		</table>
+	</form:form>
 </body>
 </html>
