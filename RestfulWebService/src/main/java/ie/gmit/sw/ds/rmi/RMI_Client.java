@@ -14,6 +14,7 @@ public class RMI_Client {
 	public RMI_Client() throws MalformedURLException, RemoteException, NotBoundException{
 		cbs = (CarBookingServer) Naming.lookup("rmi://127.0.0.1:1099/databaseservice");
 		System.out.println("Connected..");
+		
 	}
 
 	public ArrayList<Rentals> getData() throws RemoteException {
@@ -30,5 +31,9 @@ public class RMI_Client {
 		Boolean check = cbs.createAccount(rentals);
 		
 		return check;
+	}
+	
+	public Rentals getAllCars() throws RemoteException{
+		return cbs.getAllCars();
 	}
 }

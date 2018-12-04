@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.List;
 import java.util.stream.Collectors;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -23,6 +24,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
+import com.webclient.models.Cars;
 import com.webclient.models.Rentals;
 
 public class HTTP_Requests {
@@ -68,8 +70,8 @@ public class HTTP_Requests {
 	public void createAccount(Rentals rentals) {
 
 		requestedOrder = rentals.getAccounts().getAccNo();
-		System.out.println("Request No: "+ requestedOrder);
-		
+		System.out.println("Request No: " + requestedOrder);
+
 		String str = getOrderAsXML(rentals);
 
 		try {
@@ -78,20 +80,19 @@ public class HTTP_Requests {
 			con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("POST");
 			con.setRequestProperty("Content-Type", "application/xml");
-			
+
 			con.setDoOutput(true);
 			OutputStream output = new BufferedOutputStream(con.getOutputStream());
-		    output.write(str.getBytes());
-		    output.flush();
-			
+			output.write(str.getBytes());
+			output.flush();
+
 			con.disconnect();
-			
+
 			int responseCode = con.getResponseCode();
 			System.out.println("POST Response Code :: " + responseCode);
 
-			if (responseCode == HttpURLConnection.HTTP_OK) { //success
-				BufferedReader in = new BufferedReader(new InputStreamReader(
-						con.getInputStream()));
+			if (responseCode == HttpURLConnection.HTTP_OK) { // success
+				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 				String inputLine;
 				StringBuffer response = new StringBuffer();
 
@@ -113,6 +114,33 @@ public class HTTP_Requests {
 		}
 	}
 
+	public Rentals getAllCars() {
+		
+		Rentals rentals = new Rentals();
+
+		// try to create a connection and request XML format
+		try {
+			url = new URL(resourceBaseURL + "getcars");
+			con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Accept", "application/xml");
+			InputStream in = con.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			resultInXml = br.lines().collect(Collectors.joining());
+			con.disconnect();
+
+			rentals = new HTTP_Requests().getPoFromXml(resultInXml);
+			
+			return rentals;
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
 	public Rentals getPoFromXml(String input) {
 		// Unmarshal the PurchaseOrder from XML
 		StringReader sr1 = new StringReader(input);

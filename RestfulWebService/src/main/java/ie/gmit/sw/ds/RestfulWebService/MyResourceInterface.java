@@ -29,5 +29,8 @@ public interface MyResourceInterface {
 	public Response createAccount(@PathParam("value") String value, Rentals toCreate) throws RemoteException 
 	, MalformedURLException, NotBoundException;
 
-	
+	@GET
+	@Produces({MediaType.APPLICATION_XML})
+	@Path("/getcars")
+	public Rentals getAllCars() throws Exception;
 }

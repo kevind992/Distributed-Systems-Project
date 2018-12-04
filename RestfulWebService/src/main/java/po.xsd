@@ -8,8 +8,8 @@
 			<element name="id" type="int"/>
 			<element name="rentalDate" type="string"/>
 			<element name="returnDate" type="string"/>	
-			<element name="accounts" type="tns:accounts"/>
-			<element name="cars" type="tns:cars"/>
+			<element name="accounts" type="tns:accounts" minOccurs="1" maxOccurs="1"/>
+			<element name="cars" type="tns:cars" minOccurs="1" maxOccurs="unbounded"/>
 		</sequence>
 		
 	</complexType>

@@ -48,7 +48,7 @@ public class mySQL_DAO implements mySQLDAOInterface {
 				rental.setRentalDate(rset.getString("rental_date"));
 				rental.setReturnDate(rset.getString("return_date"));
 				rental.setAccounts(accounts);
-				rental.setCars(cars);
+				rental.getCars().add(cars);
 
 				rentalList.add(rental);
 			}
@@ -87,9 +87,10 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		}
 	}
 	
-	public ArrayList<Cars> getCars() throws RemoteException{
+	public Rentals getCars() throws RemoteException{
 		
-		ArrayList<Cars> carsList = new ArrayList<>();
+		Rentals rentals = new Rentals();
+		//ArrayList<Cars> carsList = new ArrayList<>();
 		
 		try (
 				Connection conn = DriverManager.getConnection(url, "root", "");
@@ -108,17 +109,17 @@ public class mySQL_DAO implements mySQLDAOInterface {
 				cars.setCarModel(rset.getString("car_model"));
 				cars.setFuelType(rset.getString("fuel_type"));
 				cars.setSeats(rset.getInt("seats"));
-				cars.setTransmission(rset.getString("tranmission"));
+				cars.setTransmission(rset.getString("transmission"));
 				cars.setCarSize(rset.getString("car_size"));
-				cars.setCarRented(rset.getBoolean("car_rented"));
+				//cars.setCarRented(rset.getBoolean("car_rented"));
 
-				carsList.add(cars);
+				rentals.getCars().add(cars);
 			}
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		System.out.println("Data successfully pulled from db..");
-		return carsList;
+		return rentals;
 	}
 }

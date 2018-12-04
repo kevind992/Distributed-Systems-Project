@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
+import ie.gmit.sw.ds.models.Cars;
 import ie.gmit.sw.ds.models.Rentals;
 import ie.gmit.sw.ds.rmi.RMI_Client;
 
@@ -69,5 +70,10 @@ public class MyResource implements MyResourceInterface {
 				return Response.status(409).entity(msg).build();
 			}
 		}
+	}
+
+	@Override
+	public Rentals getAllCars() throws Exception {
+		return new RMI_Client().getAllCars();
 	}
 }

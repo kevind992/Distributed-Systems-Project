@@ -10,7 +10,7 @@
 <title>Create Account</title>
 </head>
 <body>
-	<h1>Create Account</h1>
+	<h1>Car Hire - Create Account</h1>
 	<form:form modelAttribute="rentals">
  		<table>
 			<tr>

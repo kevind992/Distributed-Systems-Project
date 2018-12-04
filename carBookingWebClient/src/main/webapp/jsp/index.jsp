@@ -8,9 +8,13 @@
 </head>
 <body>
 	<h1>Car Hiring Booking Service</h1>
-	<FORM NAME="form1" METHOD="POST">
-        <a href="createbooking">Create Booking</a>
-        <a TYPE="button" href="manageBooking">Manage Booking</a>
-    </FORM>
+	<table>
+		<tr>
+			<td><a href="createbooking">Create Booking</a></td>
+		</tr>
+		<tr>
+			<td><a href="manageBooking">Manage Booking</a></td>
+		</tr>
+	</table>
 </body>
 </html>

@@ -18,10 +18,8 @@ public class CarBookingServerImpl extends UnicastRemoteObject implements CarBook
 	
 	@Override
 	public ArrayList<Rentals> getRentals() throws RemoteException {
-		
-		ArrayList<Rentals> acc = new ArrayList<>();
-		
-		acc = new mySQL_DAO().getRental();
+		 
+		 ArrayList<Rentals> acc = new mySQL_DAO().getRental();
 		
 		return acc;
 			
@@ -37,5 +35,10 @@ public class CarBookingServerImpl extends UnicastRemoteObject implements CarBook
 		}else {
 			return false;
 		}
+	}
+
+	@Override
+	public Rentals getAllCars() throws RemoteException {
+		return new mySQL_DAO().getCars();
 	}
 }

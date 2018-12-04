@@ -13,4 +13,6 @@ public interface CarBookingServer extends Remote{
 	
 	public Boolean createAccount(Rentals rentals) throws RemoteException;
 	
+	public Rentals getAllCars() throws RemoteException;
+	
 }

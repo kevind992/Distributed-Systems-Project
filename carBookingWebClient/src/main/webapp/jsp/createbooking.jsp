@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Create Booking</title>
+<title>Car Hire - Create Booking</title>
 </head>
 <body>
 	<h1>Account</h1>
