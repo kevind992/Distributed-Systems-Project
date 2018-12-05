@@ -26,11 +26,8 @@ public class RMI_Client {
 		return rentals;
 	}
 	
-	public Boolean createAccount(Rentals rentals) throws RemoteException {
-		
-		Boolean check = cbs.createAccount(rentals);
-		
-		return check;
+	public void createAccount(Rentals rentals) throws RemoteException {
+		cbs.createAccount(rentals);
 	}
 	
 	public Rentals getAllCars() throws RemoteException{
@@ -43,5 +40,13 @@ public class RMI_Client {
 
 	public void updateCar(Rentals toChange) throws RemoteException{
 		cbs.updateCar(toChange);
+	}
+
+	public void updateRentalDate(Rentals toChange) throws RemoteException{
+		cbs.updateRentalDate(toChange);
+	}
+
+	public void updateReturnDate(Rentals toChange) throws RemoteException{
+		cbs.updateReturnDate(toChange);
 	}
 }

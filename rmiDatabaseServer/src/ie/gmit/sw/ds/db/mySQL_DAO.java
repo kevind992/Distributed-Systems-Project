@@ -59,62 +59,14 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		return rentalList;
 	}
 
-	public Boolean createAccount(Rentals a) {
-
-		try (
-
-				Connection conn = DriverManager.getConnection(url, "root", "");
-
-				Statement stmt = conn.createStatement();) {
-
-			// INSERT a record
-			String sqlInsert = "insert into accounts " // need a space
-					+ "values ('" + a.getAccounts().getAccNo() + "','" + a.getAccounts().getFname() + "','"
-					+ a.getAccounts().getSurname() + "','" + a.getAccounts().getDob() + "','"
-					+ a.getAccounts().getAddress() + "');";
-
-			System.out.println("The SQL query is: " + sqlInsert); // Echo for debugging
-			int countInserted = stmt.executeUpdate(sqlInsert);
-
-			System.out.println(countInserted + " records inserted.\n");
-
-			return true;
-
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public void createRental(Rentals rental) {
-		
-		try (
-
-				Connection conn = DriverManager.getConnection(url, "root", "");
-
-				Statement stmt = conn.createStatement();) {
-
-			// INSERT a record
-			String sqlInsert = "insert into rentals " // need a space
-					+ "values ('46','" + rental.getCars().get(0).getRentalId() + "','" 
-					+ rental.getAccounts().getAccNo() + "','"
-					+ rental.getRentalDate() + "','" + rental.getReturnDate() + "');";
-
-			System.out.println("The SQL query is: " + sqlInsert); // Echo for debugging
-			int countInserted = stmt.executeUpdate(sqlInsert);
-
-			System.out.println(countInserted + " records inserted.\n");
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
 	public Rentals getCars() throws RemoteException {
 
 		Rentals rentals = new Rentals();
 		// ArrayList<Cars> carsList = new ArrayList<>();
 
-		try (Connection conn = DriverManager.getConnection(url, "root", ""); Statement stmt = conn.createStatement();) {
+		try (Connection conn = DriverManager.getConnection(url, "root", ""); 
+				Statement stmt = conn.createStatement();) 
+		{
 
 			String strSelect = "select * from cars ";
 			ResultSet rset = stmt.executeQuery(strSelect);
@@ -142,7 +94,7 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		return rentals;
 	}
 
-	public void updateCar(Rentals toChange) {
+	public void updateDB(String statement) {
 		
 		try (
 
@@ -150,17 +102,9 @@ public class mySQL_DAO implements mySQLDAOInterface {
 				Statement stmt = conn.createStatement();) 
 		{
 
-			System.out.println(toChange.getAccounts().getAccNo());
-			
-			// Updating a record
-			String strUpdate = "update rentals set rental_id = '" + toChange.getCars().get(0).getRentalId() + 
-					"' where acc_no like '" + toChange.getAccounts().getAccNo() + "';";
-	         System.out.println("The SQL query is: " + strUpdate); 
-	         
-			System.out.println("The SQL update query is: " + strUpdate); // Echo for debugging
-			stmt.executeUpdate(strUpdate);
+			stmt.executeUpdate(statement);
 
-			System.out.println(" records updated.\n");
+			System.out.println("records updated.\n");
 
 
 		} catch (Exception e) {

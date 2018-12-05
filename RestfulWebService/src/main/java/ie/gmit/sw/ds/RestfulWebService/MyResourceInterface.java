@@ -47,4 +47,16 @@ public interface MyResourceInterface {
 	public void updateCar(Rentals toChange) throws RemoteException 
 	, MalformedURLException, NotBoundException;
 
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_XML)
+	@Path("/updaterentaldate")
+	public void updateRentalDate(Rentals toChange) throws RemoteException 
+	, MalformedURLException, NotBoundException;
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_XML)
+	@Path("/updatereturndate")
+	public void updateReturnDate(Rentals toChange) throws RemoteException 
+	, MalformedURLException, NotBoundException;
 }

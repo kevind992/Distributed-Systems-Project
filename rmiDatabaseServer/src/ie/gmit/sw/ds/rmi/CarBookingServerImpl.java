@@ -3,9 +3,7 @@ package ie.gmit.sw.ds.rmi;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
 import ie.gmit.sw.ds.db.mySQL_DAO;
-import ie.gmit.sw.ds.models.Accounts;
 import ie.gmit.sw.ds.models.Rentals;
 
 public class CarBookingServerImpl extends UnicastRemoteObject implements CarBookingServer {
@@ -26,15 +24,15 @@ public class CarBookingServerImpl extends UnicastRemoteObject implements CarBook
 	}
 	
 	@Override
-	public Boolean createAccount(Rentals rentals) throws RemoteException{
+	public void createAccount(Rentals a) throws RemoteException{
 			
-		Boolean response = new mySQL_DAO().createAccount(rentals);
+		String sqlInsert = "insert into accounts "
+				+ "values ('" + a.getAccounts().getAccNo() + "','" + a.getAccounts().getFname() + "','"
+				+ a.getAccounts().getSurname() + "','" + a.getAccounts().getDob() + "','"
+				+ a.getAccounts().getAddress() + "');";
 		
-		if(response) {
-			return true;
-		}else {
-			return false;
-		}
+		new mySQL_DAO().updateDB(sqlInsert);
+
 	}
 
 	@Override
@@ -44,12 +42,40 @@ public class CarBookingServerImpl extends UnicastRemoteObject implements CarBook
 
 	@Override
 	public void createRental(Rentals rental) throws RemoteException {
-		// TODO Auto-generated method stub
-		new mySQL_DAO().createRental(rental);
+		
+		String sqlInsert = "insert into rentals " // need a space
+				+ "values ('46','" + rental.getCars().get(0).getRentalId() + "','" 
+				+ rental.getAccounts().getAccNo() + "','"
+				+ rental.getRentalDate() + "','" + rental.getReturnDate() + "');";
+		
+		new mySQL_DAO().updateDB(sqlInsert);
 	}
 
 	@Override
 	public void updateCar(Rentals toChange) throws RemoteException {
-		new mySQL_DAO().updateCar(toChange);
+		
+		String strUpdate = "update rentals set rental_id = '" + toChange.getCars().get(0).getRentalId() + 
+				"' where acc_no like '" + toChange.getAccounts().getAccNo() + "';";
+		
+		new mySQL_DAO().updateDB(strUpdate);
+	}
+
+	@Override
+	public void updateRentalDate(Rentals toChange) throws RemoteException {
+		
+		String strUpdate = "update rentals set rental_date = '" + toChange.getRentalDate() + 
+				"' where acc_no like '" + toChange.getAccounts().getAccNo() + "';";
+		
+		new mySQL_DAO().updateDB(strUpdate);
+	}
+
+	@Override
+	public void updateReturnDate(Rentals toChange) throws RemoteException {
+		
+		String strUpdate = "update rentals set return_date = '" + toChange.getReturnDate() + 
+				"' where acc_no like '" + toChange.getAccounts().getAccNo() + "';";
+		
+		new mySQL_DAO().updateDB(strUpdate);
+		
 	}
 }

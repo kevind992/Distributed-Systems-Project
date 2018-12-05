@@ -55,13 +55,21 @@ public class HTTP_Requests {
 	public void createRental(Rentals rental) {
 		makePostRequest(rental, "createrental");
 	}
-	
+
 	public void updateCar(Rentals rental) {
 		makePutRequest(rental, "updatecar");
 	}
+
+	public void updateRentalDate(Rentals rental) {
+		makePutRequest(rental, "updaterentaldate");
+	}
 	
+	public void updateReturnDate(Rentals rental) {
+		makePutRequest(rental, "updatereturndate");
+	}
+
 	private void makePutRequest(Rentals rental, String request) {
-		
+
 		String str = getOrderAsXML(rental);
 
 		try {
@@ -103,11 +111,11 @@ public class HTTP_Requests {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private Rentals makeGetRequest(String request) {
-		
+
 		Rentals rental = new Rentals();
-		
+
 		// try to create a connection and request XML format
 		try {
 			url = new URL(resourceBaseURL + request);
@@ -118,9 +126,9 @@ public class HTTP_Requests {
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			resultInXml = br.lines().collect(Collectors.joining());
 			con.disconnect();
-			
+
 			rental = new HTTP_Requests().getPoFromXml(resultInXml);
-			
+
 			return rental;
 
 		} catch (IOException e) {
@@ -129,9 +137,9 @@ public class HTTP_Requests {
 			return null;
 		}
 	}
-	
+
 	private void makePostRequest(Rentals rental, String request) {
-		
+
 		String str = getOrderAsXML(rental);
 
 		try {
@@ -173,7 +181,7 @@ public class HTTP_Requests {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private Rentals getPoFromXml(String input) {
 		// Unmarshal the PurchaseOrder from XML
 		StringReader sr1 = new StringReader(input);

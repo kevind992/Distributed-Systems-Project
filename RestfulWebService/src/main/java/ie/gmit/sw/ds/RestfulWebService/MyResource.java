@@ -81,4 +81,14 @@ public class MyResource implements MyResourceInterface {
 		System.out.println("Putting......");
 		new RMI_Client().updateCar(toChange);
 	}
+
+	@Override
+	public void updateRentalDate(Rentals toChange) throws RemoteException, MalformedURLException, NotBoundException {
+		new RMI_Client().updateRentalDate(toChange);
+	}
+
+	@Override
+	public void updateReturnDate(Rentals toChange) throws RemoteException, MalformedURLException, NotBoundException {
+		new RMI_Client().updateReturnDate(toChange);
+	}
 }
