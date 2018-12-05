@@ -24,15 +24,24 @@
 		<tr>
 			<th>Car: </th>
 			<th>${rental.cars[0].carMake} ${rental.cars[0].carModel}</th>
+			<th><a href="updateCar">Update</a></th>
 		</tr>
 		<tr>
 			<th>Rental Date: </th>
 			<th>${rental.rentalDate}</th>
+			<th><a href="updateRentalDate">Update</a></th>
 		</tr>
 		<tr>
 			<th>Return Date: </th>
 			<th>${rental.returnDate}</th>
-		</tr>	
+			<th><a href="updateReturnDate">Update</a></th>
+		</tr>
+		<tr>
+			<th><a href="rentalDeleted">Delete Rental</a></th>		
+		</tr>
+		<tr>
+			<th><a href="/">Home</a></th>		
+		</tr>
 	</table>
 </body>
 </html>

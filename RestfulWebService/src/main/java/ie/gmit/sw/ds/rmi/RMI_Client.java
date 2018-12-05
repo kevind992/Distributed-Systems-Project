@@ -40,4 +40,8 @@ public class RMI_Client {
 	public void createRental(Rentals rental) throws RemoteException{
 		cbs.createRental(rental);
 	}
+
+	public void updateCar(Rentals toChange) throws RemoteException{
+		cbs.updateCar(toChange);
+	}
 }

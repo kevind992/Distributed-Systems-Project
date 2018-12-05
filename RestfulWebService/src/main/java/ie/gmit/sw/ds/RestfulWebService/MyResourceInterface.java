@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -39,4 +40,11 @@ public interface MyResourceInterface {
 	@Produces({MediaType.APPLICATION_XML})
 	@Path("/getcars")
 	public Rentals getAllCars() throws Exception;
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_XML)
+	@Path("/updatecar")
+	public void updateCar(Rentals toChange) throws RemoteException 
+	, MalformedURLException, NotBoundException;
+
 }

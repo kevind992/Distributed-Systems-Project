@@ -18,5 +18,7 @@ public interface CarBookingServer extends Remote{
 	
 	public void createRental(Rentals rental) throws RemoteException;
 	
+	public void updateCar(Rentals toChange) throws RemoteException;
+	
 }
 

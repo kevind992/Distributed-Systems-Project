@@ -76,4 +76,9 @@ public class MyResource implements MyResourceInterface {
 	public void createRental(Rentals toCreate) throws RemoteException, MalformedURLException, NotBoundException {
 		new RMI_Client().createRental(toCreate);
 	}
+
+	public void updateCar(Rentals toChange) throws RemoteException, MalformedURLException, NotBoundException {
+		System.out.println("Putting......");
+		new RMI_Client().updateCar(toChange);
+	}
 }

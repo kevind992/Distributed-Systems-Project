@@ -56,7 +56,55 @@ public class HTTP_Requests {
 		makePostRequest(rental, "createrental");
 	}
 	
-	public Rentals makeGetRequest(String request) {
+	public void updateCar(Rentals rental) {
+		makePutRequest(rental, "updatecar");
+	}
+	
+	private void makePutRequest(Rentals rental, String request) {
+		
+		String str = getOrderAsXML(rental);
+
+		try {
+
+			url = new URL(resourceBaseURL + request);
+			con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("PUT");
+			con.setRequestProperty("Content-Type", "application/xml");
+
+			con.setDoOutput(true);
+			OutputStream output = new BufferedOutputStream(con.getOutputStream());
+			output.write(str.getBytes());
+			output.flush();
+
+			con.disconnect();
+
+			int responseCode = con.getResponseCode();
+			System.out.println("POST Response Code : " + responseCode);
+
+			if (responseCode == HttpURLConnection.HTTP_OK) { // success
+				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+
+				while ((inputLine = in.readLine()) != null) {
+					response.append(inputLine);
+				}
+				in.close();
+
+				// print result
+				System.out.println(response.toString());
+			} else {
+				System.out.println("request not worked");
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error Sending..");
+			e.printStackTrace();
+		}
+	}
+	
+	private Rentals makeGetRequest(String request) {
 		
 		Rentals rental = new Rentals();
 		
@@ -82,7 +130,7 @@ public class HTTP_Requests {
 		}
 	}
 	
-	public void makePostRequest(Rentals rental, String request) {
+	private void makePostRequest(Rentals rental, String request) {
 		
 		String str = getOrderAsXML(rental);
 
@@ -126,7 +174,7 @@ public class HTTP_Requests {
 		}
 	}
 	
-	public Rentals getPoFromXml(String input) {
+	private Rentals getPoFromXml(String input) {
 		// Unmarshal the PurchaseOrder from XML
 		StringReader sr1 = new StringReader(input);
 		Unmarshaller um1;

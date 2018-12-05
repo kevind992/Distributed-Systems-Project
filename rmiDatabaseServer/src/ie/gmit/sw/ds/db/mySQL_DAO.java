@@ -141,4 +141,30 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		System.out.println("Data successfully pulled from db..");
 		return rentals;
 	}
+
+	public void updateCar(Rentals toChange) {
+		
+		try (
+
+				Connection conn = DriverManager.getConnection(url, "root", "");
+				Statement stmt = conn.createStatement();) 
+		{
+
+			System.out.println(toChange.getAccounts().getAccNo());
+			
+			// Updating a record
+			String strUpdate = "update rentals set rental_id = '" + toChange.getCars().get(0).getRentalId() + 
+					"' where acc_no like '" + toChange.getAccounts().getAccNo() + "';";
+	         System.out.println("The SQL query is: " + strUpdate); 
+	         
+			System.out.println("The SQL update query is: " + strUpdate); // Echo for debugging
+			stmt.executeUpdate(strUpdate);
+
+			System.out.println(" records updated.\n");
+
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }
