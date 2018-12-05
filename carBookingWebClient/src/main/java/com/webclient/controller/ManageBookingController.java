@@ -17,8 +17,8 @@ import com.webclient.models.Rentals;
 @Controller
 public class ManageBookingController {
 
-	private String account;
-	
+	private Rentals response = new Rentals();
+
 	// When the user selects new User (Get Request)
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String manageBookingGet(Model model) {
@@ -33,10 +33,11 @@ public class ManageBookingController {
 
 	// When the user submits the form (Post Request)
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String searchAccountPOST(@Valid @ModelAttribute("rentals") Rentals rentals, BindingResult result, Model model) {
-		
-		Rentals response = new HTTP_Requests().getRentals(rentals.getAccounts().getAccNo());
-		
+	public String searchAccountPOST(@Valid @ModelAttribute("rentals") Rentals rentals, BindingResult result,
+			Model model) {
+
+		response = new HTTP_Requests().getRentals(rentals.getAccounts().getAccNo());
+
 		// If there is an error
 		if (result.hasErrors()) {
 			// Return createAccount.jsp and display the errors
@@ -44,13 +45,15 @@ public class ManageBookingController {
 		} else {
 			// Save the new ship to the database
 			System.out.println("Account found..");
-			account = response.getAccounts().getAccNo() + " " + response.getAccounts().getFname() + " " + response.getAccounts().getSurname() +
-					response.getCars().get(0).getCarMake() + " " + response.getCars().get(0).getCarModel() + " " + response.getRentalDate() 
-					+ " " + response.getReturnDate();
-			System.out.println(account);
+			
+			model.addAttribute("rental",response);
+			
+			System.out.println(response.getAccounts().getFname());
+			
+			System.out.println("Displaying rentals..");
+			
 			// return manageBooking.jsp
-			return "redirect:manageBooking";
+			return "manageBooking";
 		}
 	}
-
 }

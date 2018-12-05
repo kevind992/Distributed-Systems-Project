@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="/css/style.css" rel="stylesheet"></link>
 <meta charset="ISO-8859-1">
 <title>Create Account</title>
 </head>

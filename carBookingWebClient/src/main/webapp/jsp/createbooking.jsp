@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="/css/style.css" rel="stylesheet"></link>
 <meta charset="ISO-8859-1">
 <title>Car Hire - Create Booking</title>
 </head>

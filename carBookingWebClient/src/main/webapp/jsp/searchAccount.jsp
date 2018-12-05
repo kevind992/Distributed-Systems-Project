@@ -6,13 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="/css/style.css" rel="stylesheet"></link>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
 	<h1>Manage Booking</h1>
 	<h4>Please Enter your Account Number</h4>
-	<br>
 	<form:form modelAttribute="rentals">
 		<table>
 			<tr>

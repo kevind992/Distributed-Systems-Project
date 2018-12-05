@@ -43,7 +43,7 @@ public class mySQL_DAO implements mySQLDAOInterface {
 				accounts.setDob(rset.getString("dob"));
 				accounts.setAddress(rset.getString("address"));
 				cars.setCarMake(rset.getString("car_make"));
-				cars.setCarMake(rset.getString("car_model"));
+				cars.setCarModel(rset.getString("car_model"));
 				rental.setRentalDate(rset.getString("rental_date"));
 				rental.setReturnDate(rset.getString("return_date"));
 				rental.setAccounts(accounts);
