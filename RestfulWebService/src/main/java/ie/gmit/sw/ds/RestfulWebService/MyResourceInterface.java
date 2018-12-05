@@ -5,6 +5,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -58,5 +59,11 @@ public interface MyResourceInterface {
 	@Consumes(MediaType.APPLICATION_XML)
 	@Path("/updatereturndate")
 	public void updateReturnDate(Rentals toChange) throws RemoteException 
+	, MalformedURLException, NotBoundException;
+	
+	@DELETE
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/{value}")
+	public Response deleteRental(@PathParam("value") String value) throws RemoteException 
 	, MalformedURLException, NotBoundException;
 }

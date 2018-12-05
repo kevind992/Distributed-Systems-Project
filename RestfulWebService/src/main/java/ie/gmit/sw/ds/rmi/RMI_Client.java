@@ -49,4 +49,8 @@ public class RMI_Client {
 	public void updateReturnDate(Rentals toChange) throws RemoteException{
 		cbs.updateReturnDate(toChange);
 	}
+
+	public void deleteRental(String value) throws RemoteException{
+		cbs.deleteRental(value);
+	}
 }

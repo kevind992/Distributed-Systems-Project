@@ -23,7 +23,6 @@ public class MyResource implements MyResourceInterface {
 		Rentals requested = null;
 
 		for (Rentals r : rts) {
-			System.out.println(r);
 			if (r.getAccounts().getAccNo().equals(value)) {
 				requested = r;
 			}
@@ -42,7 +41,6 @@ public class MyResource implements MyResourceInterface {
 		Boolean check = false;
 
 		for (Rentals r : rts) {
-			System.out.println(r.getAccounts().getAccNo() + " == " + value);
 			if (r.getAccounts().getAccNo().equals(value)) {
 				System.out.println("Check is true..");
 				check = true;
@@ -90,5 +88,14 @@ public class MyResource implements MyResourceInterface {
 	@Override
 	public void updateReturnDate(Rentals toChange) throws RemoteException, MalformedURLException, NotBoundException {
 		new RMI_Client().updateReturnDate(toChange);
+	}
+
+	@Override
+	public Response deleteRental(String value) throws RemoteException, MalformedURLException, NotBoundException {
+		
+		new RMI_Client().deleteRental(value);
+		
+		String msg = "The order number " + value + " was deleted!";
+		return Response.status(200).entity(msg).build();
 	}
 }

@@ -67,6 +67,34 @@ public class HTTP_Requests {
 	public void updateReturnDate(Rentals rental) {
 		makePutRequest(rental, "updatereturndate");
 	}
+	
+	public void deleteRental(Rentals rental) {
+		makeDeleteRequest(rental.getAccounts().getAccNo());
+	}
+
+	private void makeDeleteRequest(String request) {
+		
+		try {
+
+			url = new URL(resourceBaseURL + request);
+			con = (HttpURLConnection) url.openConnection();
+			con.setDoInput(true);
+			con.setInstanceFollowRedirects(false); 
+			con.setRequestMethod("DELETE"); 
+			con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+			con.setRequestProperty("charset", "utf-8");
+			con.setUseCaches (false);
+
+			System.out.println("Response code: " + con.getResponseCode());
+			
+			con.disconnect();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error Sending..");
+			e.printStackTrace();
+		}
+	}
 
 	private void makePutRequest(Rentals rental, String request) {
 
@@ -214,4 +242,6 @@ public class HTTP_Requests {
 		}
 		return sw.toString();
 	}
+
+	
 }

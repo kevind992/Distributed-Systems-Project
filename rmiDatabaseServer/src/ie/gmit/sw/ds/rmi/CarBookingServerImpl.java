@@ -78,4 +78,12 @@ public class CarBookingServerImpl extends UnicastRemoteObject implements CarBook
 		new mySQL_DAO().updateDB(strUpdate);
 		
 	}
+
+	@Override
+	public void deleteRental(String value) throws RemoteException {
+		
+		String sqlDelete = "delete from rentals where acc_no like '" + value + "';";
+		
+		new mySQL_DAO().updateDB(sqlDelete);
+	}
 }

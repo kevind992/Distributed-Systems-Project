@@ -24,5 +24,7 @@ public interface CarBookingServer extends Remote{
 	
 	public void updateReturnDate(Rentals toChange) throws RemoteException;
 	
+	public void deleteRental(String value) throws RemoteException;
+	
 }
 

@@ -117,7 +117,7 @@ public class ManageBookingController {
 	}
 
 	// When the user submits the form (Post Request)
-	@RequestMapping(value = "/updateRentalDate", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateRentalDate", method = RequestMethod.PUT)
 	public String updateRentalDatePOST(@Valid @ModelAttribute("rentals") Rentals rentals, BindingResult result,
 			Model model) {
 		// If there is an error
@@ -151,7 +151,7 @@ public class ManageBookingController {
 	}
 
 	// When the user submits the form (Post Request)
-	@RequestMapping(value = "/updateReturnDate", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateReturnDate", method = RequestMethod.PUT)
 	public String manageUpdateReturnPost(@Valid @ModelAttribute("rentals") Rentals rentals, BindingResult result,
 			Model model) {
 		// If there is an error
@@ -171,5 +171,11 @@ public class ManageBookingController {
 			return "/index";
 		}
 	}
-
+	@RequestMapping(value = "/rentalDeleted", method = RequestMethod.GET)
+	public String deleteRental(){
+		
+		new HTTP_Requests().deleteRental(response);
+		return "rentalDeleted";
+	}
+	
 }
