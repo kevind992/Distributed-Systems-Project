@@ -16,7 +16,7 @@
  		<table>
 			<tr>
 				<td>Account No:</td>
-				<td><form:input path="accounts.accNo"></form:input></td>
+				<td><form:input  path="accounts.accNo"></form:input></td>
 			</tr>
   			<tr>
 				<td>First Name:</td>

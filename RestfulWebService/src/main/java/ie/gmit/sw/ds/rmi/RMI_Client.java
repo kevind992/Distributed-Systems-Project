@@ -14,16 +14,14 @@ public class RMI_Client {
 	public RMI_Client() throws MalformedURLException, RemoteException, NotBoundException{
 		cbs = (CarBookingServer) Naming.lookup("rmi://127.0.0.1:1099/databaseservice");
 		System.out.println("Connected..");
-		
 	}
 
 	public ArrayList<Rentals> getData() throws RemoteException {
- 
-		ArrayList<Rentals> rentals = cbs.getRentals();
-
-		System.out.println("Array List filled..");
-
-		return rentals;
+		return cbs.getRentals();
+	}
+	
+	public ArrayList<String> getAccNum() throws RemoteException {
+		return cbs.getAccNum();
 	}
 	
 	public void createAccount(Rentals rentals) throws RemoteException {
@@ -34,8 +32,8 @@ public class RMI_Client {
 		return cbs.getAllCars();
 	}
 	
-	public void createRental(Rentals rental) throws RemoteException{
-		cbs.createRental(rental);
+	public boolean createRental(Rentals rental) throws RemoteException{
+		return cbs.createRental(rental);
 	}
 
 	public void updateCar(Rentals toChange) throws RemoteException{

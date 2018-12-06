@@ -54,9 +54,69 @@ public class mySQL_DAO implements mySQLDAOInterface {
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			System.out.println("Error");
 		}
 		System.out.println("Data successfully pull from db..");
 		return rentalList;
+	}
+
+	public ArrayList<String> getAccounts() throws RemoteException {
+
+		ArrayList<String> accountList = new ArrayList<>();
+		
+		try (
+
+				Connection conn = DriverManager.getConnection(url, "root", "");
+				Statement stmt = conn.createStatement();) {
+			String strSelect = "select acc_no from accounts;";
+
+			ResultSet rset = stmt.executeQuery(strSelect);
+
+			while (rset.next()) { // Move the cursor to the next row, return false if no more row
+
+				String acc;
+				
+				acc = String.valueOf(rset.getInt("acc_no"));
+				
+				accountList.add(acc);
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			System.out.println("Error");
+		}
+		System.out.println("Data successfully pull from db..");
+		return accountList;
+
+	}
+	
+	public ArrayList<Integer> getRentalId() throws RemoteException {
+
+		ArrayList<Integer> idList = new ArrayList<>();
+		
+		try (
+
+				Connection conn = DriverManager.getConnection(url, "root", "");
+				Statement stmt = conn.createStatement();) {
+			String strSelect = "select id from rentals;";
+
+			ResultSet rset = stmt.executeQuery(strSelect);
+
+			while (rset.next()) { // Move the cursor to the next row, return false if no more row
+
+				int acc;
+				
+				acc = rset.getInt("id");
+				
+				idList.add(acc);
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			System.out.println("Error");
+		}
+		System.out.println("Data successfully pull from db..");
+		return idList;
 	}
 
 	public Rentals getCars() throws RemoteException {
@@ -64,9 +124,7 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		Rentals rentals = new Rentals();
 		// ArrayList<Cars> carsList = new ArrayList<>();
 
-		try (Connection conn = DriverManager.getConnection(url, "root", ""); 
-				Statement stmt = conn.createStatement();) 
-		{
+		try (Connection conn = DriverManager.getConnection(url, "root", ""); Statement stmt = conn.createStatement();) {
 
 			String strSelect = "select * from cars ";
 			ResultSet rset = stmt.executeQuery(strSelect);
@@ -94,21 +152,20 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		return rentals;
 	}
 
-	public void updateDB(String statement) {
-		
+	public boolean updateDB(String statement) {
+
 		try (
 
 				Connection conn = DriverManager.getConnection(url, "root", "");
-				Statement stmt = conn.createStatement();) 
-		{
+				Statement stmt = conn.createStatement();) {
 
 			stmt.executeUpdate(statement);
 
 			System.out.println("records updated.\n");
-
-
+			return true;
 		} catch (Exception e) {
 			System.out.println(e);
+			return false;
 		}
 	}
 }

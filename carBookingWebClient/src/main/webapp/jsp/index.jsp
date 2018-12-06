@@ -14,7 +14,7 @@
 			<td><a href="createbooking">Create Booking</a></td>
 		</tr>
 		<tr>
-			<td><a href="search">Manage Booking</a></td>
+			<td><a href="searchAccount">Manage Booking</a></td>
 		</tr>
 	</table>
 </body>

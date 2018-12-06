@@ -12,7 +12,7 @@
 <body>
 	<table>
 		<tr>
-			<td><h2>Rental Deleted</h2></td>
+			<td><h2>Rental Created</h2></td>
 		</tr>
 		<tr>
 			<td><a href="index">Home</a></td>

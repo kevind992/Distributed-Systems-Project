@@ -19,12 +19,12 @@ import com.webclient.models.Rentals;
 public class ManageBookingController {
 
 	private Rentals response = new Rentals();
+	private String searchAcc;
 
 	// When the user selects new User (Get Request)
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchAccount", method = RequestMethod.GET)
 	public String manageBookingGet(Model model) {
 
-		System.out.println("Here..");
 		Rentals rentals = new Rentals();
 
 		model.addAttribute("rentals", rentals);
@@ -33,17 +33,20 @@ public class ManageBookingController {
 	}
 
 	// When the user submits the form (Post Request)
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String searchAccountPOST(@Valid @ModelAttribute("rentals") Rentals rentals, BindingResult result,
-			Model model) {
+	@RequestMapping(value = "/searchAccount", method = RequestMethod.POST)
+	public String searchAccountPOST(@Valid @ModelAttribute("rentals") Rentals rentals, Model model) {
 
-		response = new HTTP_Requests().getRentals(rentals.getAccounts().getAccNo());
+		searchAcc = rentals.getAccounts().getAccNo();
+		response = new HTTP_Requests().getRentals(searchAcc);
 
-		// If there is an error
-		if (result.hasErrors()) {
+		if (response == null) {
+			model.addAttribute("accNo", searchAcc);
 			// Return createAccount.jsp and display the errors
-			return "searchAccount";
+			System.out.println("Has Errors..");
+			return "accountError";
+
 		} else {
+
 			// Save the new ship to the database
 			System.out.println("Account found..");
 
@@ -54,6 +57,7 @@ public class ManageBookingController {
 			// return manageBooking.jsp
 			return "manageBooking";
 		}
+
 	}
 
 	// When the user selects update in the car section (Get Request)
@@ -171,11 +175,12 @@ public class ManageBookingController {
 			return "/index";
 		}
 	}
+
 	@RequestMapping(value = "/rentalDeleted", method = RequestMethod.GET)
-	public String deleteRental(){
-		
+	public String deleteRental() {
+
 		new HTTP_Requests().deleteRental(response);
 		return "rentalDeleted";
 	}
-	
+
 }

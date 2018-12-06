@@ -15,6 +15,7 @@ import ie.gmit.sw.ds.rmi.RMI_Client;
 public class MyResource implements MyResourceInterface {
 
 	private ArrayList<Rentals> rts = new ArrayList<>();
+	private ArrayList<String> accNum = new ArrayList<>();
 
 	public Rentals getOrder(String value) throws Exception {
 
@@ -33,9 +34,9 @@ public class MyResource implements MyResourceInterface {
 
 	public Response createAccount(String value, Rentals toCreate)
 			throws RemoteException, MalformedURLException, NotBoundException {
-		
+
 		System.out.println("Added..");
-		
+
 		rts = new RMI_Client().getData();
 
 		Boolean check = false;
@@ -51,7 +52,7 @@ public class MyResource implements MyResourceInterface {
 			String msg = "The account number " + value + " already exists";
 			return Response.status(409).entity(msg).build();
 		} else {
-			
+
 			Boolean created = true;
 
 			new RMI_Client().createAccount(toCreate);
@@ -71,8 +72,39 @@ public class MyResource implements MyResourceInterface {
 		return new RMI_Client().getAllCars();
 	}
 
-	public void createRental(Rentals toCreate) throws RemoteException, MalformedURLException, NotBoundException {
-		new RMI_Client().createRental(toCreate);
+	public Response createRental(Rentals toCreate) throws RemoteException, MalformedURLException, NotBoundException {
+
+		accNum = new RMI_Client().getAccNum();
+
+		Boolean check = false;
+		int count = 0;
+
+		for (String acc : accNum) {
+			count++;
+			if (acc.equals(toCreate.getAccounts().getAccNo())) {
+				System.out.println(acc + " = " + toCreate.getAccounts().getAccNo());
+				System.out.println("Check is true..");
+				check = true;
+			}
+		}
+
+		System.out.println("Count is: " + count);
+
+		if (check) {
+			boolean c = new RMI_Client().createRental(toCreate);
+			if (c) {
+				String msg = "Account Created";
+				System.out.println(msg);
+				return Response.status(201).entity(msg).build(); // return 201 for resource created
+			} else {
+				String msg = "No account under that Account Number";
+				return Response.status(409).entity(msg).build(); // return 409 for resource created
+			}
+
+		} else {
+			String msg = "No account under that Account Number";
+			return Response.status(409).entity(msg).build(); // return 409 for resource created
+		}
 	}
 
 	public void updateCar(Rentals toChange) throws RemoteException, MalformedURLException, NotBoundException {
@@ -92,9 +124,9 @@ public class MyResource implements MyResourceInterface {
 
 	@Override
 	public Response deleteRental(String value) throws RemoteException, MalformedURLException, NotBoundException {
-		
+
 		new RMI_Client().deleteRental(value);
-		
+
 		String msg = "The order number " + value + " was deleted!";
 		return Response.status(200).entity(msg).build();
 	}

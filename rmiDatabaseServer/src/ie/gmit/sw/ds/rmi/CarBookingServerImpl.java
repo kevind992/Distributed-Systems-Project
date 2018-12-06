@@ -10,27 +10,28 @@ public class CarBookingServerImpl extends UnicastRemoteObject implements CarBook
 
 	private static final long serialVersionUID = 1L;
 
-	public CarBookingServerImpl() throws RemoteException{
+	public CarBookingServerImpl() throws RemoteException {
 		super();
 	}
-	
+
 	@Override
 	public ArrayList<Rentals> getRentals() throws RemoteException {
-		 
-		 ArrayList<Rentals> acc = new mySQL_DAO().getRental();
-		
-		return acc;
-			
+		return new mySQL_DAO().getRental();
 	}
 	
 	@Override
-	public void createAccount(Rentals a) throws RemoteException{
-			
-		String sqlInsert = "insert into accounts "
-				+ "values ('" + a.getAccounts().getAccNo() + "','" + a.getAccounts().getFname() + "','"
-				+ a.getAccounts().getSurname() + "','" + a.getAccounts().getDob() + "','"
-				+ a.getAccounts().getAddress() + "');";
+	public ArrayList<String> getAccNum() throws RemoteException {
 		
+		return new mySQL_DAO().getAccounts();
+	}
+
+	@Override
+	public void createAccount(Rentals a) throws RemoteException {
+
+		String sqlInsert = "insert into accounts " + "values ('" + a.getAccounts().getAccNo() + "','"
+				+ a.getAccounts().getFname() + "','" + a.getAccounts().getSurname() + "','" + a.getAccounts().getDob()
+				+ "','" + a.getAccounts().getAddress() + "');";
+
 		new mySQL_DAO().updateDB(sqlInsert);
 
 	}
@@ -41,49 +42,53 @@ public class CarBookingServerImpl extends UnicastRemoteObject implements CarBook
 	}
 
 	@Override
-	public void createRental(Rentals rental) throws RemoteException {
+	public boolean createRental(Rentals rental) throws RemoteException {
+
+		ArrayList<Integer> idList = new mySQL_DAO().getRentalId();
+		
+		int id = idList.get(idList.size()-1);
+		id++;
 		
 		String sqlInsert = "insert into rentals " // need a space
-				+ "values ('46','" + rental.getCars().get(0).getRentalId() + "','" 
-				+ rental.getAccounts().getAccNo() + "','"
-				+ rental.getRentalDate() + "','" + rental.getReturnDate() + "');";
-		
-		new mySQL_DAO().updateDB(sqlInsert);
+				+ "values ('"+ id + "','" + rental.getCars().get(0).getRentalId() + "','" + rental.getAccounts().getAccNo()
+				+ "','" + rental.getRentalDate() + "','" + rental.getReturnDate() + "');";
+
+		return new mySQL_DAO().updateDB(sqlInsert);
 	}
 
 	@Override
 	public void updateCar(Rentals toChange) throws RemoteException {
-		
-		String strUpdate = "update rentals set rental_id = '" + toChange.getCars().get(0).getRentalId() + 
-				"' where acc_no like '" + toChange.getAccounts().getAccNo() + "';";
-		
+
+		String strUpdate = "update rentals set rental_id = '" + toChange.getCars().get(0).getRentalId()
+				+ "' where acc_no like '" + toChange.getAccounts().getAccNo() + "';";
+
 		new mySQL_DAO().updateDB(strUpdate);
 	}
 
 	@Override
 	public void updateRentalDate(Rentals toChange) throws RemoteException {
-		
-		String strUpdate = "update rentals set rental_date = '" + toChange.getRentalDate() + 
-				"' where acc_no like '" + toChange.getAccounts().getAccNo() + "';";
-		
+
+		String strUpdate = "update rentals set rental_date = '" + toChange.getRentalDate() + "' where acc_no like '"
+				+ toChange.getAccounts().getAccNo() + "';";
+
 		new mySQL_DAO().updateDB(strUpdate);
 	}
 
 	@Override
 	public void updateReturnDate(Rentals toChange) throws RemoteException {
-		
-		String strUpdate = "update rentals set return_date = '" + toChange.getReturnDate() + 
-				"' where acc_no like '" + toChange.getAccounts().getAccNo() + "';";
-		
+
+		String strUpdate = "update rentals set return_date = '" + toChange.getReturnDate() + "' where acc_no like '"
+				+ toChange.getAccounts().getAccNo() + "';";
+
 		new mySQL_DAO().updateDB(strUpdate);
-		
+
 	}
 
 	@Override
 	public void deleteRental(String value) throws RemoteException {
-		
+
 		String sqlDelete = "delete from rentals where acc_no like '" + value + "';";
-		
+
 		new mySQL_DAO().updateDB(sqlDelete);
 	}
 }

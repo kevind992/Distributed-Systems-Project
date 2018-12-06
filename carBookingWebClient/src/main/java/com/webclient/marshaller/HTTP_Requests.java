@@ -44,16 +44,16 @@ public class HTTP_Requests {
 		return makeGetRequest(request);
 	}
 
-	public void createAccount(Rentals rentals) {
-		makePostRequest(rentals, rentals.getAccounts().getAccNo());
+	public boolean createAccount(Rentals rentals) {
+		return makePostRequest(rentals, rentals.getAccounts().getAccNo());
 	}
 
 	public Rentals getAllCars() {
 		return makeGetRequest("getcars");
 	}
 
-	public void createRental(Rentals rental) {
-		makePostRequest(rental, "createrental");
+	public boolean createRental(Rentals rental) {
+		return makePostRequest(rental, "createrental");
 	}
 
 	public void updateCar(Rentals rental) {
@@ -166,7 +166,7 @@ public class HTTP_Requests {
 		}
 	}
 
-	private void makePostRequest(Rentals rental, String request) {
+	private boolean makePostRequest(Rentals rental, String request) {
 
 		String str = getOrderAsXML(rental);
 
@@ -202,11 +202,17 @@ public class HTTP_Requests {
 			} else {
 				System.out.println("request not worked");
 			}
+			if(responseCode == 201) {
+				return true;
+			}else {
+				return false;
+			}
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error Sending..");
 			e.printStackTrace();
+			return false;
 		}
 	}
 

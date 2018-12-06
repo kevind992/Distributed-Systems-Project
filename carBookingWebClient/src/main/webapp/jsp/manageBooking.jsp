@@ -14,8 +14,7 @@
 	<table>
 		<tr>
 			<th>Account Number: </th>
-			<th>${rental.accounts.accNo}</th>
-			
+			<th>${rental.accounts.accNo}</th>	
 		</tr>
 		<tr>
 			<th>Name: </th>

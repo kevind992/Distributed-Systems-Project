@@ -34,7 +34,7 @@ public interface MyResourceInterface {
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
 	@Path("/createrental")
-	public void createRental(Rentals toCreate) throws RemoteException 
+	public Response createRental(Rentals toCreate) throws RemoteException 
 	, MalformedURLException, NotBoundException;
 
 	@GET

@@ -12,7 +12,10 @@
 <body>
 	<table>
 		<tr>
-			<td><h2>Rental Deleted</h2></td>
+			<td><h2>Account Created</h2></td>
+		</tr>
+		<tr>
+			<td><a href="existingUser">Create Rental</a></td>
 		</tr>
 		<tr>
 			<td><a href="index">Home</a></td>

@@ -9,11 +9,13 @@ public interface CarBookingServer extends Remote{
 
 	public ArrayList<Rentals> getRentals() throws RemoteException;
 	
+	public ArrayList<String> getAccNum() throws RemoteException;
+	
 	public void createAccount(Rentals rentals) throws RemoteException;
 	
 	public Rentals getAllCars() throws RemoteException;
 	
-	public void createRental(Rentals rental) throws RemoteException;
+	public boolean createRental(Rentals rental) throws RemoteException;
 	
 	public void updateCar(Rentals toChange) throws RemoteException;
 	
