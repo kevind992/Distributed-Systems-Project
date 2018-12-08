@@ -173,7 +173,7 @@ public class ManageBookingController {
 			new HTTP_Requests().updateReturnDate(rentals);
 			System.out.println("Car Rental Date Updated..");
 			model.addAttribute("rentals", response);
-			return "/index";
+			return "index";
 		}
 	}
 

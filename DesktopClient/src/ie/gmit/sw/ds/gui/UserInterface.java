@@ -29,7 +29,7 @@ public class UserInterface {
 				new CreateBooking().Option();
 				break;
 			case 2:
-			
+				new ManageRental().FindAccount();
 				break;
 			default:
 				break;

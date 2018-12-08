@@ -20,8 +20,7 @@ public class CreateBooking {
 			
 			System.out.println("Select an Option");
 			System.out.println("======================================");
-			System.out.println(
-					"Select '1' if you are a New User\nSelect '2' if you are an Existing User\nSelect '0' to Exit");
+			System.out.println("Select '1' if you are a New User\nSelect '2' if you are an Existing User\nSelect '0' to Exit");
 			System.out.println("======================================");
 			option = stdin.nextInt();
 
