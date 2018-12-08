@@ -75,16 +75,11 @@ public class HTTP_Requests {
 			con.setRequestMethod("DELETE"); 
 			con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
 			con.setRequestProperty("charset", "utf-8");
-			con.setUseCaches (false);
-
-			System.out.println("Response code: " + con.getResponseCode());
-			
+			con.setUseCaches (false);		
 			con.disconnect();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Error Sending..");
-			e.printStackTrace();
+
 		}
 	}
 
@@ -119,17 +114,12 @@ public class HTTP_Requests {
 				}
 				in.close();
 
-				// print result
-				System.out.println(response.toString());
 			} else {
-				System.out.println("request not worked");
+
 			}
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Error Sending..");
-			e.printStackTrace();
-		}
+		} catch (IOException e) {}
+
 	}
 
 	private Rentals makeGetRequest(String request) {
@@ -177,7 +167,7 @@ public class HTTP_Requests {
 			con.disconnect();
 
 			int responseCode = con.getResponseCode();
-			System.out.println("POST Response Code : " + responseCode);
+
 
 			if (responseCode == HttpURLConnection.HTTP_OK) { // success
 				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -189,10 +179,7 @@ public class HTTP_Requests {
 				}
 				in.close();
 
-				// print result
-				System.out.println(response.toString());
 			} else {
-				System.out.println("request not worked");
 			}
 			if(responseCode == 201) {
 				return true;
@@ -201,9 +188,6 @@ public class HTTP_Requests {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Error Sending..");
-			e.printStackTrace();
 			return false;
 		}
 	}
@@ -213,7 +197,7 @@ public class HTTP_Requests {
 		StringReader sr1 = new StringReader(input);
 		Unmarshaller um1;
 		try {
-			JAXBContext jc = JAXBContext.newInstance("com.webclient.models");
+			JAXBContext jc = JAXBContext.newInstance("ie.gmit.sw.ds.models");
 			um1 = jc.createUnmarshaller();
 			StreamSource source1 = new StreamSource(sr1);
 			JAXBElement<Rentals> poElement1 = um1.unmarshal(source1, Rentals.class);
@@ -230,7 +214,7 @@ public class HTTP_Requests {
 		StringWriter sw = new StringWriter();
 		Marshaller m;
 		try {
-			JAXBContext jc = JAXBContext.newInstance("com.webclient.models");
+			JAXBContext jc = JAXBContext.newInstance("ie.gmit.sw.ds.models");
 			m = jc.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			m.marshal(po, sw);
