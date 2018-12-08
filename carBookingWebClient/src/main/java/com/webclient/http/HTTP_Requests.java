@@ -1,4 +1,4 @@
-package com.webclient.marshaller;
+package com.webclient.http;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
