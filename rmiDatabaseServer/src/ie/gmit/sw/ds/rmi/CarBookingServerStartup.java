@@ -9,8 +9,6 @@ public class CarBookingServerStartup {
 
 		CarBookingServer cbs = new CarBookingServerImpl();
 		
-		//System.setSecurityManager(new RMISecurityManager());
-		
 		LocateRegistry.createRegistry(1099);
 		
 		Naming.rebind("databaseservice", cbs);

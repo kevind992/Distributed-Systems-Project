@@ -32,6 +32,7 @@ public class HTTP_Requests {
 	private Rentals rentals;
 
 	private String resourceBaseURL = "http://localhost:8080/RestfulWebService/webapi/createbooking/";
+	private String resourceAdminUrl = "http://localhost:8080/RestfulWebService/webapi/admin/";
 	private URL url;
 	private HttpURLConnection con;
 	private String resultInXml = "";
@@ -70,6 +71,10 @@ public class HTTP_Requests {
 	
 	public void deleteRental(Rentals rental) {
 		makeDeleteRequest(rental.getAccounts().getAccNo());
+	}
+	
+	public void getAllRentals() {
+		makeGetAdminRequest("getall");
 	}
 
 	private void makeDeleteRequest(String request) {
@@ -213,6 +218,32 @@ public class HTTP_Requests {
 			System.out.println("Error Sending..");
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	private Rentals makeGetAdminRequest(String request) {
+
+		Rentals rental = new Rentals();
+
+		// try to create a connection and request XML format
+		try {
+			url = new URL(resourceAdminUrl + request);
+			con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Accept", "application/xml");
+			InputStream in = con.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			resultInXml = br.lines().collect(Collectors.joining());
+			con.disconnect();
+
+			rental = new HTTP_Requests().getPoFromXml(resultInXml);
+
+			return rental;
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
 	}
 

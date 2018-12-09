@@ -16,6 +16,9 @@
 		<tr>
 			<td><a href="searchAccount">Manage Booking</a></td>
 		</tr>
+		<tr>
+			<td><a href="viewAllRentals">View All Bookings</a></td>
+		</tr>
 	</table>
 </body>
 </html>
