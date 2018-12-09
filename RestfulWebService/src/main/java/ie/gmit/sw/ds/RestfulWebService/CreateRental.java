@@ -11,8 +11,8 @@ import ie.gmit.sw.ds.models.Rentals;
 import ie.gmit.sw.ds.rmi.RMI_Client;
 
 @Singleton
-@Path("/createbooking")
-public class MyResource implements MyResourceInterface {
+@Path("/create")
+public class CreateRental implements CreateRentalInterface {
 
 	private ArrayList<Rentals> rts = new ArrayList<>();
 	private ArrayList<String> accNum = new ArrayList<>();
@@ -107,27 +107,4 @@ public class MyResource implements MyResourceInterface {
 		}
 	}
 
-	public void updateCar(Rentals toChange) throws RemoteException, MalformedURLException, NotBoundException {
-		System.out.println("Putting......");
-		new RMI_Client().updateCar(toChange);
-	}
-
-	@Override
-	public void updateRentalDate(Rentals toChange) throws RemoteException, MalformedURLException, NotBoundException {
-		new RMI_Client().updateRentalDate(toChange);
-	}
-
-	@Override
-	public void updateReturnDate(Rentals toChange) throws RemoteException, MalformedURLException, NotBoundException {
-		new RMI_Client().updateReturnDate(toChange);
-	}
-
-	@Override
-	public Response deleteRental(String value) throws RemoteException, MalformedURLException, NotBoundException {
-
-		new RMI_Client().deleteRental(value);
-
-		String msg = "The order number " + value + " was deleted!";
-		return Response.status(200).entity(msg).build();
-	}
 }

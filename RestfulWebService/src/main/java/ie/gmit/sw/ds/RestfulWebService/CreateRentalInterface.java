@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 
 import ie.gmit.sw.ds.models.Rentals;
 
-public interface MyResourceInterface {
+public interface CreateRentalInterface {
 	
 	@GET
 	@Produces({MediaType.APPLICATION_XML})
@@ -42,28 +42,4 @@ public interface MyResourceInterface {
 	@Path("/getcars")
 	public Rentals getAllCars() throws Exception;
 	
-	@PUT
-	@Consumes(MediaType.APPLICATION_XML)
-	@Path("/updatecar")
-	public void updateCar(Rentals toChange) throws RemoteException 
-	, MalformedURLException, NotBoundException;
-
-	
-	@PUT
-	@Consumes(MediaType.APPLICATION_XML)
-	@Path("/updaterentaldate")
-	public void updateRentalDate(Rentals toChange) throws RemoteException 
-	, MalformedURLException, NotBoundException;
-	
-	@PUT
-	@Consumes(MediaType.APPLICATION_XML)
-	@Path("/updatereturndate")
-	public void updateReturnDate(Rentals toChange) throws RemoteException 
-	, MalformedURLException, NotBoundException;
-	
-	@DELETE
-	@Produces(MediaType.TEXT_PLAIN)
-	@Path("/{value}")
-	public Response deleteRental(@PathParam("value") String value) throws RemoteException 
-	, MalformedURLException, NotBoundException;
 }
