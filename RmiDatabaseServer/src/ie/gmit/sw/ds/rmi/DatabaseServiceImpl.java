@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import ie.gmit.sw.ds.db.mySQL_DAO;
 import ie.gmit.sw.ds.models.Rentals;
 
-public class CarBookingServerImpl extends UnicastRemoteObject implements CarBookingServer {
+public class DatabaseServiceImpl extends UnicastRemoteObject implements DatabaseService {
 
 	private static final long serialVersionUID = 1L;
 
-	public CarBookingServerImpl() throws RemoteException {
+	public DatabaseServiceImpl() throws RemoteException {
 		super();
 	}
 

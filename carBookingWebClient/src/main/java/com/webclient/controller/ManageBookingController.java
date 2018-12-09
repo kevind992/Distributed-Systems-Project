@@ -122,7 +122,7 @@ public class ManageBookingController {
 	}
 
 	// When the user submits the form (Post Request)
-	@RequestMapping(value = "/updateRentalDate", method = RequestMethod.PUT)
+	@RequestMapping(value = "/updateRentalDate", method = RequestMethod.POST)
 	public String updateRentalDatePOST(@Valid @ModelAttribute("rentals") Rentals rentals, BindingResult result,
 			Model model) {
 		// If there is an error
@@ -156,7 +156,7 @@ public class ManageBookingController {
 	}
 
 	// When the user submits the form (Post Request)
-	@RequestMapping(value = "/updateReturnDate", method = RequestMethod.PUT)
+	@RequestMapping(value = "/updateReturnDate", method = RequestMethod.POST)
 	public String manageUpdateReturnPost(@Valid @ModelAttribute("rentals") Rentals rentals, BindingResult result,
 			Model model) {
 		// If there is an error

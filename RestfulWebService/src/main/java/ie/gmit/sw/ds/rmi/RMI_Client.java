@@ -9,10 +9,10 @@ import ie.gmit.sw.ds.models.Rentals;
 
 public class RMI_Client {
 	
-	private CarBookingServer cbs;
+	private DatabaseService cbs;
 	
 	public RMI_Client() throws MalformedURLException, RemoteException, NotBoundException{
-		cbs = (CarBookingServer) Naming.lookup("rmi://127.0.0.1:1099/databaseservice");
+		cbs = (DatabaseService) Naming.lookup("rmi://127.0.0.1:1099/databaseservice");
 		System.out.println("Connected..");
 	}
 

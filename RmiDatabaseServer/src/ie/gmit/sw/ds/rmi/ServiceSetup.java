@@ -3,11 +3,11 @@ package ie.gmit.sw.ds.rmi;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
-public class CarBookingServerStartup {
+public class ServiceSetup {
 	
 	public static void main(String[] args) throws Exception{
 
-		CarBookingServer cbs = new CarBookingServerImpl();
+		DatabaseService cbs = new DatabaseServiceImpl();
 		
 		LocateRegistry.createRegistry(1099);
 		

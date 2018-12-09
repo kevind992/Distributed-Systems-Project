@@ -29,7 +29,8 @@ public class HTTP_Requests {
 
 	private Rentals rentals;
 
-	private String resourceBaseURL = "http://localhost:8080/RestfulWebService/webapi/createbooking/";
+	private String resourceCreateURL = "http://localhost:8080/RestfulWebService/webapi/create/";
+	private String resourceManageUrl = "http://localhost:8080/RestfulWebService/webapi/manage/";
 	private String resourceAdminUrl = "http://localhost:8080/RestfulWebService/webapi/admin/";
 	private URL url;
 	private HttpURLConnection con;
@@ -40,46 +41,46 @@ public class HTTP_Requests {
 	}
 
 	public Rentals getRentals(String request) {
-		return makeGetRequest(request);
+		return makeGetRequest(resourceCreateURL, request);
 	}
 
 	public boolean createAccount(Rentals rentals) {
-		return makePostRequest(rentals, rentals.getAccounts().getAccNo());
+		return makePostRequest(rentals, resourceCreateURL, rentals.getAccounts().getAccNo());
 	}
 
 	public Rentals getAllCars() {
-		return makeGetRequest("getcars");
+		return makeGetRequest(resourceCreateURL,"getcars");
 	}
 
 	public boolean createRental(Rentals rental) {
-		return makePostRequest(rental, "createrental");
+		return makePostRequest(rental, resourceCreateURL, "createrental");
 	}
 
 	public void updateCar(Rentals rental) {
-		makePutRequest(rental, "updatecar");
+		makePutRequest(rental, resourceManageUrl, "updatecar");
 	}
 
 	public void updateRentalDate(Rentals rental) {
-		makePutRequest(rental, "updaterentaldate");
+		makePutRequest(rental, resourceManageUrl, "updaterentaldate");
 	}
 	
 	public void updateReturnDate(Rentals rental) {
-		makePutRequest(rental, "updatereturndate");
+		makePutRequest(rental, resourceManageUrl, "updatereturndate");
 	}
 	
 	public void deleteRental(Rentals rental) {
-		makeDeleteRequest(rental.getAccounts().getAccNo());
+		makeDeleteRequest(resourceManageUrl, rental.getAccounts().getAccNo());
 	}
 	
 	public List<Rentals> getAllRentals() {
-		return makeGetAdminRequest("getall");
+		return makeGetAdminRequest(resourceAdminUrl ,"getall");
 	}
 
-	private void makeDeleteRequest(String request) {
+	private void makeDeleteRequest(String urlResourse, String request) {
 		
 		try {
 
-			url = new URL(resourceBaseURL + request);
+			url = new URL(urlResourse + request);
 			con = (HttpURLConnection) url.openConnection();
 			con.setDoInput(true);
 			con.setInstanceFollowRedirects(false); 
@@ -99,13 +100,13 @@ public class HTTP_Requests {
 		}
 	}
 
-	private void makePutRequest(Rentals rental, String request) {
+	private void makePutRequest(Rentals rental, String urlResourse, String request) {
 
 		String str = getOrderAsXML(rental);
 
 		try {
 
-			url = new URL(resourceBaseURL + request);
+			url = new URL(urlResourse + request);
 			con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("PUT");
 			con.setRequestProperty("Content-Type", "application/xml");
@@ -127,13 +128,13 @@ public class HTTP_Requests {
 		}
 	}
 
-	private Rentals makeGetRequest(String request) {
+	private Rentals makeGetRequest(String urlResourse, String request) {
 
 		Rentals rental = new Rentals();
 
 		// try to create a connection and request XML format
 		try {
-			url = new URL(resourceBaseURL + request);
+			url = new URL(urlResourse + request);
 			con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 			con.setRequestProperty("Accept", "application/xml");
@@ -153,13 +154,13 @@ public class HTTP_Requests {
 		}
 	}
 
-	private boolean makePostRequest(Rentals rental, String request) {
+	private boolean makePostRequest(Rentals rental, String urlResourse, String request) {
 
 		String str = getOrderAsXML(rental);
 
 		try {
 
-			url = new URL(resourceBaseURL + request);
+			url = new URL(urlResourse + request);
 			con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("POST");
 			con.setRequestProperty("Content-Type", "application/xml");
@@ -188,10 +189,10 @@ public class HTTP_Requests {
 		}
 	}
 	
-	private List<Rentals> makeGetAdminRequest(String request) {
+	private List<Rentals> makeGetAdminRequest(String urlResourse, String request) {
         
 		Client client = Client.create();
-		WebResource webresource = client.resource(resourceAdminUrl + request);
+		WebResource webresource = client.resource(urlResourse + request);
 		 				
         return webresource.get(new GenericType<List<Rentals>>(){});
 	}
