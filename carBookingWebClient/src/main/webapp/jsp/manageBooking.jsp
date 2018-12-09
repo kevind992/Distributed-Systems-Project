@@ -38,9 +38,7 @@
 		<tr>
 			<th><a href="rentalDeleted">Delete Rental</a></th>		
 		</tr>
-		<tr>
-			<th><a href="/">Home</a></th>		
-		</tr>
 	</table>
+	<a href="/">Home</a>
 </body>
 </html>

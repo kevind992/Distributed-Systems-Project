@@ -25,5 +25,6 @@
 			</tr>
 		</table>
 	</form:form>
+	<a href="/">Back</a>
 </body>
 </html>

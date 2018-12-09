@@ -20,5 +20,6 @@
 			<td><a href="viewAllRentals">View All Bookings</a></td>
 		</tr>
 	</table>
+	<a href="/logout">Logout</a> 
 </body>
 </html>

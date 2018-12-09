@@ -17,5 +17,6 @@
 			<td><a href="/existingUser">Existing User</a></td>
 		</tr>
 	</table>
+	<a href="/">Back</a>
 </body>
 </html>

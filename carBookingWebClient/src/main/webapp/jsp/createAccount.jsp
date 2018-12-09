@@ -41,5 +41,6 @@
 			</tr>
 		</table> 
 	</form:form>
+	<a href="/createbooking">Back</a>
 </body>
 </html>
