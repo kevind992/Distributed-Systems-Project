@@ -18,10 +18,12 @@ public class ManageRental {
 		response = new Rentals();
 	}
 
+	// Method for finding an account
 	public void FindAccount() {
 
 		Accounts acc = new Accounts();
 
+		// Displaying options to the user
 		System.out.println("======================================");
 		System.out.println("Manage Rental");
 		System.out.println("======================================");
@@ -29,20 +31,23 @@ public class ManageRental {
 		String test = stdin.next();
 		acc.setAccNo(test);
 
+		// returning account number and saving response into response
 		response = new HTTP_Requests().getRentals(acc.getAccNo());
 
+		// if null no account with that account number
 		if (response == null) {
 			System.out.println("No Account with that Account Number");
-
-		} else {
+		
+		} else { // else account found
 			System.out.println("Account Found");
+			// calling display rental method
 			DisplayRental();
 		}
-
 	}
-
+	// Method for displaying rentals
 	public void DisplayRental() {
 
+		// displaying rentals to the user
 		System.out.println("======================================");
 		System.out.println("Rental: " + response.getAccounts().getAccNo());
 		System.out.println("======================================");
@@ -50,8 +55,10 @@ public class ManageRental {
 				+ response.getCars().get(0).getCarMake() + " " + response.getCars().get(0).getCarModel() + " | "
 				+ response.getRentalDate() + " | " + response.getReturnDate());
 		System.out.println("======================================");
+		// showing the options to the user
 		System.out.println("Select an Option: ");
 		System.out.println("Select '1' to Update Car\nSelect '2' to Update Rental Date\nSelect '3' to Update Return Date");
+		// Getting the option from the usre
 		int option = stdin.nextInt();
 
 		switch (option) {
@@ -70,7 +77,7 @@ public class ManageRental {
 		}
 
 	}
-
+	// Update car method
 	private void updateCar() {
 
 		ArrayList<Cars> cars = (ArrayList<Cars>) new HTTP_Requests().getAllCars().getCars();
@@ -115,7 +122,7 @@ public class ManageRental {
 		new HTTP_Requests().updateRentalDate(update);
 
 	}
-
+	// Update Return date method
 	private void updateReturnDate() {
 
 		Rentals update = new Rentals();

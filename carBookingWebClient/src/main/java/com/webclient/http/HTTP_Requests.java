@@ -39,58 +39,59 @@ public class HTTP_Requests {
 	public HTTP_Requests() {
 		super();
 	}
-
+	// Get all Rentals
 	public Rentals getRentals(String request) {
 		return makeGetRequest(resourceCreateURL, request);
 	}
-
+	// Create Account
 	public boolean createAccount(Rentals rentals) {
 		return makePostRequest(rentals, resourceCreateURL, rentals.getAccounts().getAccNo());
 	}
-
+	// Get all cars
 	public Rentals getAllCars() {
 		return makeGetRequest(resourceCreateURL,"getcars");
 	}
-
+	// Create Rental
 	public boolean createRental(Rentals rental) {
 		return makePostRequest(rental, resourceCreateURL, "createrental");
 	}
-
+	// Update Car
 	public boolean updateCar(Rentals rental) {
 		return makePutRequest(rental, resourceManageUrl, "updatecar");
 	}
-
+	// Update Rental Date
 	public boolean updateRentalDate(Rentals rental) {
 		return makePutRequest(rental, resourceManageUrl, "updaterentaldate");
 	}
-	
+	// Update Return Date
 	public boolean updateReturnDate(Rentals rental) {
 		return makePutRequest(rental, resourceManageUrl, "updatereturndate");
 	}
-	
+	// Delete Rental
 	public boolean deleteRental(Rentals rental) {
 		return makeDeleteRequest(resourceManageUrl, rental.getAccounts().getAccNo());
 	}
-	
+	// Get all rental in List
 	public List<Rentals> getAllRentals() {
 		return makeGetAdminRequest(resourceAdminUrl ,"getall");
 	}
-
+	
+	// HTTP method for deleting a Rental
 	private boolean makeDeleteRequest(String urlResourse, String request) {
 		
 		try {
-
+			// Making connection 
 			url = new URL(urlResourse + request);
 			con = (HttpURLConnection) url.openConnection();
 			con.setDoInput(true);
 			con.setInstanceFollowRedirects(false); 
+			// Setting method a delete
 			con.setRequestMethod("DELETE"); 
 			con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
 			con.setRequestProperty("charset", "utf-8");
 			con.setUseCaches (false);
-
-			System.out.println("Response code: " + con.getResponseCode());
 			
+			// If the response is 201 return true if not return false
 			if(con.getResponseCode() == 201) {
 				con.disconnect();
 				return true;
@@ -105,15 +106,18 @@ public class HTTP_Requests {
 			return false;
 		}
 	}
-
+	// HTTP method for sending a PUT request
 	private boolean makePutRequest(Rentals rental, String urlResourse, String request) {
-
+		
+		// Marshaling before sending
 		String str = getOrderAsXML(rental);
 
 		try {
-
+			
+			// Making connection
 			url = new URL(urlResourse + request);
 			con = (HttpURLConnection) url.openConnection();
+			// Setting the request to PUT
 			con.setRequestMethod("PUT");
 			con.setRequestProperty("Content-Type", "application/xml");
 
@@ -124,9 +128,10 @@ public class HTTP_Requests {
 
 			con.disconnect();
 
+			// Getting the response 
 			int responseCode = con.getResponseCode();
-			System.out.println("POST Response Code : " + responseCode);
 			
+			// if the response is 200 return true otherwise return false
 			if(responseCode == 200) {
 				return true;
 			}else {
@@ -140,15 +145,17 @@ public class HTTP_Requests {
 			return false;
 		}
 	}
-
+	// HTTP method for making a GET request
 	private Rentals makeGetRequest(String urlResourse, String request) {
 
 		Rentals rental = new Rentals();
 
 		// try to create a connection and request XML format
 		try {
+			// Making connection
 			url = new URL(urlResourse + request);
 			con = (HttpURLConnection) url.openConnection();
+			// Setting the request to GET
 			con.setRequestMethod("GET");
 			con.setRequestProperty("Accept", "application/xml");
 			InputStream in = con.getInputStream();
@@ -156,6 +163,7 @@ public class HTTP_Requests {
 			resultInXml = br.lines().collect(Collectors.joining());
 			con.disconnect();
 
+			// Changing the returned response from xml into a rental object
 			rental = new HTTP_Requests().getPoFromXml(resultInXml);
 
 			return rental;
@@ -166,15 +174,17 @@ public class HTTP_Requests {
 			return null;
 		}
 	}
-
+	// HTTP method for making a POST request
 	private boolean makePostRequest(Rentals rental, String urlResourse, String request) {
 
+		// changing the to xml
 		String str = getOrderAsXML(rental);
 
 		try {
-
+			// Making the connection
 			url = new URL(urlResourse + request);
 			con = (HttpURLConnection) url.openConnection();
+			// Setting the requested type to POST
 			con.setRequestMethod("POST");
 			con.setRequestProperty("Content-Type", "application/xml");
 
@@ -183,11 +193,11 @@ public class HTTP_Requests {
 			output.write(str.getBytes());
 			output.flush();
 
+			// Getting the response
+			int responseCode = con.getResponseCode();
 			con.disconnect();
 
-			int responseCode = con.getResponseCode();
-			System.out.println("POST Response Code : " + responseCode);
-
+			// if the response is 201 then return true otherwise return false
 			if(responseCode == 201) {
 				return true;
 			}else {
@@ -201,15 +211,16 @@ public class HTTP_Requests {
 			return false;
 		}
 	}
-	
+	// Method for getting all rentals made
 	private List<Rentals> makeGetAdminRequest(String urlResourse, String request) {
         
 		Client client = Client.create();
 		WebResource webresource = client.resource(urlResourse + request);
-		 				
+		// Making a GET request and returning a List of Rental objects		
         return webresource.get(new GenericType<List<Rentals>>(){});
 	}
 
+	// Method for converting xml to a POJO
 	private Rentals getPoFromXml(String input) {
 		// Unmarshal the PurchaseOrder from XML
 		StringReader sr1 = new StringReader(input);
@@ -226,7 +237,7 @@ public class HTTP_Requests {
 		}
 		return this.rentals;
 	}
-
+	// Method for converting a POJO to xml
 	private String getOrderAsXML(Rentals po) {
 		// Marshal the PurchaseOrder into XML
 		StringWriter sw = new StringWriter();
@@ -242,6 +253,4 @@ public class HTTP_Requests {
 		}
 		return sw.toString();
 	}
-
-	
 }

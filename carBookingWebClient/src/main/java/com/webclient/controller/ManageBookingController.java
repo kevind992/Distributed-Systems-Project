@@ -58,7 +58,6 @@ public class ManageBookingController {
 			// return manageBooking.jsp
 			return "manageBooking";
 		}
-
 	}
 
 	// When the user selects update in the car section (Get Request)
@@ -160,6 +159,7 @@ public class ManageBookingController {
 		// sent the new rental to the jersey application
 		boolean check = new HTTP_Requests().updateReturnDate(rentals);
 		
+		// depending on response return jsp file
 		if(check) {
 			System.out.println("Car Rental Date Updated..");
 			model.addAttribute("rentals", response);
@@ -170,12 +170,14 @@ public class ManageBookingController {
 		
 		
 	}
-
+	// Method for sending the selected item for deletion
 	@RequestMapping(value = "/rentalDeleted", method = RequestMethod.GET)
 	public String deleteRental() {
 
+		// sending the rental object to rest server and getting a boolean response
 		boolean check = new HTTP_Requests().deleteRental(response);
 		
+		//depending on response return jsp page
 		if(check) {
 			return "rentalDeleted";
 		}else {

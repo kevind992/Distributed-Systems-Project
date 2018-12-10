@@ -17,12 +17,13 @@ import javax.ws.rs.core.Response;
 
 import ie.gmit.sw.ds.models.Rentals;
 
+// An interface which contains all the jax-rs anotations for CreateRental
 public interface CreateRentalInterface {
 	
 	@GET
 	@Produces({MediaType.APPLICATION_XML})
 	@Path("/{value}")
-	public Rentals getOrder(@PathParam("value") String value) throws Exception;
+	public Rentals getRental(@PathParam("value") String value) throws Exception;
 	
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)

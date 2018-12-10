@@ -6,6 +6,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+//An interface which contains all the jax-rs anotations for Admin
 public interface AdminInterface {
 
 	

@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 
 import ie.gmit.sw.ds.models.Rentals;
 
+//An interface which contains all the jax-rs anotations for ManageRental
 public interface ManageRentalInterface {
 
 	@PUT

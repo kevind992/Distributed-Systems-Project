@@ -23,7 +23,8 @@ public class HTTP_Requests {
 
 	private Rentals rentals;
 
-	private String resourceBaseURL = "http://localhost:8080/RestfulWebService/webapi/createbooking/";
+	private String resourceCreateURL = "http://localhost:8080/RestfulWebService/webapi/create/";
+	private String resourceManageUrl = "http://localhost:8080/RestfulWebService/webapi/manage/";
 	private URL url;
 	private HttpURLConnection con;
 	private String resultInXml = "";
@@ -32,65 +33,89 @@ public class HTTP_Requests {
 		super();
 	}
 
+	// Get all Rentals
 	public Rentals getRentals(String request) {
-		return makeGetRequest(request);
+		return makeGetRequest(resourceCreateURL, request);
 	}
 
+	// Create Account
 	public boolean createAccount(Rentals rentals) {
-		return makePostRequest(rentals, rentals.getAccounts().getAccNo());
+		return makePostRequest(rentals, resourceCreateURL, rentals.getAccounts().getAccNo());
 	}
 
+	// Get all cars
 	public Rentals getAllCars() {
-		return makeGetRequest("getcars");
+		return makeGetRequest(resourceCreateURL, "getcars");
 	}
 
+	// Create Rental
 	public boolean createRental(Rentals rental) {
-		return makePostRequest(rental, "createrental");
+		return makePostRequest(rental, resourceCreateURL, "createrental");
 	}
 
-	public void updateCar(Rentals rental) {
-		makePutRequest(rental, "updatecar");
+	// Update Car
+	public boolean updateCar(Rentals rental) {
+		return makePutRequest(rental, resourceManageUrl, "updatecar");
 	}
 
-	public void updateRentalDate(Rentals rental) {
-		makePutRequest(rental, "updaterentaldate");
-	}
-	
-	public void updateReturnDate(Rentals rental) {
-		makePutRequest(rental, "updatereturndate");
-	}
-	
-	public void deleteRental(Rentals rental) {
-		makeDeleteRequest(rental.getAccounts().getAccNo());
+	// Update Rental Date
+	public boolean updateRentalDate(Rentals rental) {
+		return makePutRequest(rental, resourceManageUrl, "updaterentaldate");
 	}
 
-	private void makeDeleteRequest(String request) {
-		
+	// Update Return Date
+	public boolean updateReturnDate(Rentals rental) {
+		return makePutRequest(rental, resourceManageUrl, "updatereturndate");
+	}
+
+	// Delete Rental
+	public boolean deleteRental(Rentals rental) {
+		return makeDeleteRequest(resourceManageUrl, rental.getAccounts().getAccNo());
+	}
+
+	// HTTP method for deleting a Rental
+	private boolean makeDeleteRequest(String urlResourse, String request) {
+
 		try {
-
-			url = new URL(resourceBaseURL + request);
+			// Making connection
+			url = new URL(urlResourse + request);
 			con = (HttpURLConnection) url.openConnection();
 			con.setDoInput(true);
-			con.setInstanceFollowRedirects(false); 
-			con.setRequestMethod("DELETE"); 
-			con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+			con.setInstanceFollowRedirects(false);
+			// Setting method a delete
+			con.setRequestMethod("DELETE");
+			con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			con.setRequestProperty("charset", "utf-8");
-			con.setUseCaches (false);		
-			con.disconnect();
+			con.setUseCaches(false);
 
+			// If the response is 201 return true if not return false
+			if (con.getResponseCode() == 201) {
+				con.disconnect();
+				return true;
+			} else {
+				con.disconnect();
+				return false;
+			}
 		} catch (IOException e) {
-
+			// TODO Auto-generated catch block
+			System.out.println("Error Sending..");
+			e.printStackTrace();
+			return false;
 		}
 	}
 
-	private void makePutRequest(Rentals rental, String request) {
+	// HTTP method for sending a PUT request
+	private boolean makePutRequest(Rentals rental, String urlResourse, String request) {
 
+		// Marshaling before sending
 		String str = getOrderAsXML(rental);
 
 		try {
 
-			url = new URL(resourceBaseURL + request);
+			// Making connection
+			url = new URL(urlResourse + request);
 			con = (HttpURLConnection) url.openConnection();
+			// Setting the request to PUT
 			con.setRequestMethod("PUT");
 			con.setRequestProperty("Content-Type", "application/xml");
 
@@ -101,35 +126,35 @@ public class HTTP_Requests {
 
 			con.disconnect();
 
+			// Getting the response
 			int responseCode = con.getResponseCode();
-			System.out.println("POST Response Code : " + responseCode);
 
-			if (responseCode == HttpURLConnection.HTTP_OK) { // success
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				String inputLine;
-				StringBuffer response = new StringBuffer();
-
-				while ((inputLine = in.readLine()) != null) {
-					response.append(inputLine);
-				}
-				in.close();
-
+			// if the response is 200 return true otherwise return false
+			if (responseCode == 200) {
+				return true;
 			} else {
-
+				return false;
 			}
 
-		} catch (IOException e) {}
-
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error Sending..");
+			e.printStackTrace();
+			return false;
+		}
 	}
 
-	private Rentals makeGetRequest(String request) {
+	// HTTP method for making a GET request
+	private Rentals makeGetRequest(String urlResourse, String request) {
 
 		Rentals rental = new Rentals();
 
 		// try to create a connection and request XML format
 		try {
-			url = new URL(resourceBaseURL + request);
+			// Making connection
+			url = new URL(urlResourse + request);
 			con = (HttpURLConnection) url.openConnection();
+			// Setting the request to GET
 			con.setRequestMethod("GET");
 			con.setRequestProperty("Accept", "application/xml");
 			InputStream in = con.getInputStream();
@@ -137,6 +162,7 @@ public class HTTP_Requests {
 			resultInXml = br.lines().collect(Collectors.joining());
 			con.disconnect();
 
+			// Changing the returned response from xml into a rental object
 			rental = new HTTP_Requests().getPoFromXml(resultInXml);
 
 			return rental;
@@ -148,14 +174,17 @@ public class HTTP_Requests {
 		}
 	}
 
-	private boolean makePostRequest(Rentals rental, String request) {
+	// HTTP method for making a POST request
+	private boolean makePostRequest(Rentals rental, String urlResourse, String request) {
 
+		// changing the to xml
 		String str = getOrderAsXML(rental);
 
 		try {
-
-			url = new URL(resourceBaseURL + request);
+			// Making the connection
+			url = new URL(urlResourse + request);
 			con = (HttpURLConnection) url.openConnection();
+			// Setting the requested type to POST
 			con.setRequestMethod("POST");
 			con.setRequestProperty("Content-Type", "application/xml");
 
@@ -164,40 +193,32 @@ public class HTTP_Requests {
 			output.write(str.getBytes());
 			output.flush();
 
+			// Getting the response
+			int responseCode = con.getResponseCode();
 			con.disconnect();
 
-			int responseCode = con.getResponseCode();
-
-
-			if (responseCode == HttpURLConnection.HTTP_OK) { // success
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				String inputLine;
-				StringBuffer response = new StringBuffer();
-
-				while ((inputLine = in.readLine()) != null) {
-					response.append(inputLine);
-				}
-				in.close();
-
-			} else {
-			}
-			if(responseCode == 201) {
+			// if the response is 201 then return true otherwise return false
+			if (responseCode == 201) {
 				return true;
-			}else {
+			} else {
 				return false;
 			}
 
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error Sending..");
+			e.printStackTrace();
 			return false;
 		}
 	}
 
+	// Method for converting xml to a POJO
 	private Rentals getPoFromXml(String input) {
 		// Unmarshal the PurchaseOrder from XML
 		StringReader sr1 = new StringReader(input);
 		Unmarshaller um1;
 		try {
-			JAXBContext jc = JAXBContext.newInstance("ie.gmit.sw.ds.models");
+			JAXBContext jc = JAXBContext.newInstance("com.webclient.models");
 			um1 = jc.createUnmarshaller();
 			StreamSource source1 = new StreamSource(sr1);
 			JAXBElement<Rentals> poElement1 = um1.unmarshal(source1, Rentals.class);
@@ -209,12 +230,13 @@ public class HTTP_Requests {
 		return this.rentals;
 	}
 
+	// Method for converting a POJO to xml
 	private String getOrderAsXML(Rentals po) {
 		// Marshal the PurchaseOrder into XML
 		StringWriter sw = new StringWriter();
 		Marshaller m;
 		try {
-			JAXBContext jc = JAXBContext.newInstance("ie.gmit.sw.ds.models");
+			JAXBContext jc = JAXBContext.newInstance("com.webclient.models");
 			m = jc.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			m.marshal(po, sw);
@@ -224,6 +246,4 @@ public class HTTP_Requests {
 		}
 		return sw.toString();
 	}
-
-	
 }

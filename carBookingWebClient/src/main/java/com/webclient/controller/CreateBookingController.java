@@ -38,12 +38,14 @@ public class CreateBookingController {
 		ArrayList<Cars> cars = (ArrayList<Cars>) new HTTP_Requests().getAllCars().getCars();
 		Map<Integer, String> mapCars = new LinkedHashMap<Integer, String>();
 
+		// creating the drop down box
 		for (int i = 0; i < cars.size(); i++) {
-			dispCar = cars.get(i).getCarMake() + " " + cars.get(i).getCarModel();
+			dispCar = cars.get(i).getCarMake() + " " + cars.get(i).getCarModel() + " | " +
+					cars.get(i).getTransmission() + " | " + cars.get(i).getFuelType();
 			// System.out.println(dispCar);
 			mapCars.put(cars.get(i).getRentalId(), dispCar);
 		}
-
+		// adding the map to the model 
 		model.addAttribute("carList", mapCars);
 
 		return "existingUser";
@@ -53,6 +55,7 @@ public class CreateBookingController {
 	@RequestMapping(value = "/existingUser", method = RequestMethod.POST)
 	public String addRentalPOST(@Valid @ModelAttribute("rentals") Rentals rentals, Model model) {
 
+		// Creating rental
 		boolean check = new HTTP_Requests().createRental(rentals);
 
 		if (check) {
@@ -77,6 +80,7 @@ public class CreateBookingController {
 	@RequestMapping(value = "/createAccount", method = RequestMethod.POST)
 	public String addAccountPOST(@Valid @ModelAttribute("rentals") Rentals rentals, Model model) {
 
+		// Creating account
 		boolean check = new HTTP_Requests().createAccount(rentals);
 
 		if (check) {

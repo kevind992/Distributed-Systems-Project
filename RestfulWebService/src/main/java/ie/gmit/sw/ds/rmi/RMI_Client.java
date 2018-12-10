@@ -12,6 +12,8 @@ public class RMI_Client {
 	private DatabaseService cbs;
 	
 	public RMI_Client() throws MalformedURLException, RemoteException, NotBoundException{
+		
+		// Connecting to rmi server
 		cbs = (DatabaseService) Naming.lookup("rmi://127.0.0.1:1099/databaseservice");
 		System.out.println("Connected..");
 	}
