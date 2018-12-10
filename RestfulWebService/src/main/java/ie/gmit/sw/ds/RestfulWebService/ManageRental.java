@@ -13,29 +13,64 @@ import ie.gmit.sw.ds.rmi.RMI_Client;
 
 @Singleton
 @Path("/manage")
-public class ManageRental implements ManageRentalInterface{
+public class ManageRental implements ManageRentalInterface {
 
-	public void updateCar(Rentals toChange) throws RemoteException, MalformedURLException, NotBoundException {
+	public Response updateCar(Rentals toChange) throws RemoteException, MalformedURLException, NotBoundException {
 		System.out.println("Putting......");
-		new RMI_Client().updateCar(toChange);
+		boolean check = new RMI_Client().updateCar(toChange);
+
+		if (check) {
+			String msg = "Car was Updated";
+			return Response.status(200).entity(msg).build();
+		} else {
+			String msg = "Car was Not Updated";
+			return Response.status(404).entity(msg).build();
+		}	
 	}
 
 	@Override
-	public void updateRentalDate(Rentals toChange) throws RemoteException, MalformedURLException, NotBoundException {
-		new RMI_Client().updateRentalDate(toChange);
+	public Response updateRentalDate(Rentals toChange)
+			throws RemoteException, MalformedURLException, NotBoundException {
+		boolean check = new RMI_Client().updateRentalDate(toChange);
+
+		if (check) {
+			String msg = "Rental Date was Updated";
+			return Response.status(200).entity(msg).build();
+		} else {
+			String msg = "Rental Date was Not Updated";
+			return Response.status(404).entity(msg).build();
+		}
 	}
 
 	@Override
-	public void updateReturnDate(Rentals toChange) throws RemoteException, MalformedURLException, NotBoundException {
-		new RMI_Client().updateReturnDate(toChange);
+	public Response updateReturnDate(Rentals toChange)
+			throws RemoteException, MalformedURLException, NotBoundException {
+		boolean check = new RMI_Client().updateReturnDate(toChange);
+
+		if (check) {
+			String msg = "Return Date was Updated";
+			return Response.status(200).entity(msg).build();
+		} else {
+			String msg = "Return Date was Not Updated";
+			return Response.status(404).entity(msg).build();
+		}
 	}
 
 	@Override
 	public Response deleteRental(String value) throws RemoteException, MalformedURLException, NotBoundException {
 
-		new RMI_Client().deleteRental(value);
+		boolean check = new RMI_Client().deleteRental(value);
 
-		String msg = "The order number " + value + " was deleted!";
-		return Response.status(200).entity(msg).build();
+		if (check) {
+
+			String msg = "The Order Number " + value + " was Deleted!";
+			return Response.status(200).entity(msg).build();
+			
+		} else {
+			String msg = "The Order Number " + value + " was NOT Deleted!";
+			return Response.status(404).entity(msg).build();
+		}
+
+		
 	}
 }

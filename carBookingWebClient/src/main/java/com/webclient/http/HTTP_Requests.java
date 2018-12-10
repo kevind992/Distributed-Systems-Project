@@ -56,27 +56,27 @@ public class HTTP_Requests {
 		return makePostRequest(rental, resourceCreateURL, "createrental");
 	}
 
-	public void updateCar(Rentals rental) {
-		makePutRequest(rental, resourceManageUrl, "updatecar");
+	public boolean updateCar(Rentals rental) {
+		return makePutRequest(rental, resourceManageUrl, "updatecar");
 	}
 
-	public void updateRentalDate(Rentals rental) {
-		makePutRequest(rental, resourceManageUrl, "updaterentaldate");
+	public boolean updateRentalDate(Rentals rental) {
+		return makePutRequest(rental, resourceManageUrl, "updaterentaldate");
 	}
 	
-	public void updateReturnDate(Rentals rental) {
-		makePutRequest(rental, resourceManageUrl, "updatereturndate");
+	public boolean updateReturnDate(Rentals rental) {
+		return makePutRequest(rental, resourceManageUrl, "updatereturndate");
 	}
 	
-	public void deleteRental(Rentals rental) {
-		makeDeleteRequest(resourceManageUrl, rental.getAccounts().getAccNo());
+	public boolean deleteRental(Rentals rental) {
+		return makeDeleteRequest(resourceManageUrl, rental.getAccounts().getAccNo());
 	}
 	
 	public List<Rentals> getAllRentals() {
 		return makeGetAdminRequest(resourceAdminUrl ,"getall");
 	}
 
-	private void makeDeleteRequest(String urlResourse, String request) {
+	private boolean makeDeleteRequest(String urlResourse, String request) {
 		
 		try {
 
@@ -91,16 +91,22 @@ public class HTTP_Requests {
 
 			System.out.println("Response code: " + con.getResponseCode());
 			
-			con.disconnect();
-
+			if(con.getResponseCode() == 201) {
+				con.disconnect();
+				return true;
+			}else {
+				con.disconnect();
+				return false;
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error Sending..");
 			e.printStackTrace();
+			return false;
 		}
 	}
 
-	private void makePutRequest(Rentals rental, String urlResourse, String request) {
+	private boolean makePutRequest(Rentals rental, String urlResourse, String request) {
 
 		String str = getOrderAsXML(rental);
 
@@ -120,11 +126,18 @@ public class HTTP_Requests {
 
 			int responseCode = con.getResponseCode();
 			System.out.println("POST Response Code : " + responseCode);
+			
+			if(responseCode == 200) {
+				return true;
+			}else {
+				return false;
+			}
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error Sending..");
 			e.printStackTrace();
+			return false;
 		}
 	}
 

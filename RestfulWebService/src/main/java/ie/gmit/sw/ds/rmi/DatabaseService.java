@@ -20,13 +20,13 @@ public interface DatabaseService extends Remote{
 	
 	public boolean createRental(Rentals rental) throws RemoteException;
 	
-	public void updateCar(Rentals toChange) throws RemoteException;
+	public boolean updateCar(Rentals toChange) throws RemoteException;
 	
-	public void updateRentalDate(Rentals toChange) throws RemoteException;
+	public boolean updateRentalDate(Rentals toChange) throws RemoteException;
 	
-	public void updateReturnDate(Rentals toChange) throws RemoteException;
+	public boolean updateReturnDate(Rentals toChange) throws RemoteException;
 	
-	public void deleteRental(String value) throws RemoteException;
+	public boolean deleteRental(String value) throws RemoteException;
 	
 }
 

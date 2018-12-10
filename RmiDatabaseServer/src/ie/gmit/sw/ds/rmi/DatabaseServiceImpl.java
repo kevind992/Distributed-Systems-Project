@@ -57,38 +57,38 @@ public class DatabaseServiceImpl extends UnicastRemoteObject implements Database
 	}
 
 	@Override
-	public void updateCar(Rentals toChange) throws RemoteException {
+	public boolean updateCar(Rentals toChange) throws RemoteException {
 
 		String strUpdate = "update rentals set rental_id = '" + toChange.getCars().get(0).getRentalId()
 				+ "' where acc_no like '" + toChange.getAccounts().getAccNo() + "';";
 
-		new mySQL_DAO().updateDB(strUpdate);
+		return new mySQL_DAO().updateDB(strUpdate);
 	}
 
 	@Override
-	public void updateRentalDate(Rentals toChange) throws RemoteException {
+	public boolean updateRentalDate(Rentals toChange) throws RemoteException {
 
 		String strUpdate = "update rentals set rental_date = '" + toChange.getRentalDate() + "' where acc_no like '"
 				+ toChange.getAccounts().getAccNo() + "';";
 
-		new mySQL_DAO().updateDB(strUpdate);
+		return new mySQL_DAO().updateDB(strUpdate);
 	}
 
 	@Override
-	public void updateReturnDate(Rentals toChange) throws RemoteException {
+	public boolean updateReturnDate(Rentals toChange) throws RemoteException {
 
 		String strUpdate = "update rentals set return_date = '" + toChange.getReturnDate() + "' where acc_no like '"
 				+ toChange.getAccounts().getAccNo() + "';";
 
-		new mySQL_DAO().updateDB(strUpdate);
+		return new mySQL_DAO().updateDB(strUpdate);
 
 	}
 
 	@Override
-	public void deleteRental(String value) throws RemoteException {
+	public boolean deleteRental(String value) throws RemoteException {
 
 		String sqlDelete = "delete from rentals where acc_no like '" + value + "';";
 
-		new mySQL_DAO().updateDB(sqlDelete);
+		return new mySQL_DAO().updateDB(sqlDelete);
 	}
 }

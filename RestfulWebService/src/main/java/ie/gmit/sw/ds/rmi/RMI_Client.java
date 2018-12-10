@@ -36,19 +36,19 @@ public class RMI_Client {
 		return cbs.createRental(rental);
 	}
 
-	public void updateCar(Rentals toChange) throws RemoteException{
-		cbs.updateCar(toChange);
+	public boolean updateCar(Rentals toChange) throws RemoteException{
+		return cbs.updateCar(toChange);
 	}
 
-	public void updateRentalDate(Rentals toChange) throws RemoteException{
-		cbs.updateRentalDate(toChange);
+	public boolean updateRentalDate(Rentals toChange) throws RemoteException{
+		return cbs.updateRentalDate(toChange);
 	}
 
-	public void updateReturnDate(Rentals toChange) throws RemoteException{
-		cbs.updateReturnDate(toChange);
+	public boolean updateReturnDate(Rentals toChange) throws RemoteException{
+		return cbs.updateReturnDate(toChange);
 	}
 
-	public void deleteRental(String value) throws RemoteException{
-		cbs.deleteRental(value);
+	public boolean deleteRental(String value) throws RemoteException{
+		return cbs.deleteRental(value);
 	}
 }

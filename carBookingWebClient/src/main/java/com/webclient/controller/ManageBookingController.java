@@ -89,23 +89,20 @@ public class ManageBookingController {
 
 	// When the user submits the form (Post Request)
 	@RequestMapping(value = "/updateCar", method = RequestMethod.POST)
-	public String manageUpdateCarPOST(@Valid @ModelAttribute("rentals") Rentals rentals, BindingResult result,
-			Model model) {
-		// If there is an error
-		if (result.hasErrors()) {
-			// Return createAccount.jsp and display the errors
-			return "createAccount";
-		} else {
+	public String manageUpdateCarPOST(@Valid @ModelAttribute("rentals") Rentals rentals, Model model) {
+		
+		Accounts acc = new Accounts();
+		acc.setAccNo(response.getAccounts().getAccNo());
+		rentals.setAccounts(acc);
 
-			Accounts acc = new Accounts();
-			acc.setAccNo(response.getAccounts().getAccNo());
-			rentals.setAccounts(acc);
-
-			// sent the new rental to the jersey application
-			new HTTP_Requests().updateCar(rentals);
+		// sent the new rental to the jersey application
+		boolean check = new HTTP_Requests().updateCar(rentals);
+		if(check) {
 			System.out.println("Car Rental Updated..");
 			model.addAttribute("rental", response);
-			return "/index";
+			return "manageBooking";
+		}else {
+			return "accountError";
 		}
 	}
 
@@ -123,23 +120,20 @@ public class ManageBookingController {
 
 	// When the user submits the form (Post Request)
 	@RequestMapping(value = "/updateRentalDate", method = RequestMethod.POST)
-	public String updateRentalDatePOST(@Valid @ModelAttribute("rentals") Rentals rentals, BindingResult result,
-			Model model) {
-		// If there is an error
-		if (result.hasErrors()) {
-			// Return createAccount.jsp and display the errors
-			return "createAccount";
-		} else {
+	public String updateRentalDatePOST(@Valid @ModelAttribute("rentals") Rentals rentals, Model model) {
+		
+		Accounts acc = new Accounts();
+		acc.setAccNo(response.getAccounts().getAccNo());
+		rentals.setAccounts(acc);
 
-			Accounts acc = new Accounts();
-			acc.setAccNo(response.getAccounts().getAccNo());
-			rentals.setAccounts(acc);
-
-			// sent the new rental to the jersey application
-			new HTTP_Requests().updateRentalDate(rentals);
+		// sent the new rental to the jersey application
+		boolean check = new HTTP_Requests().updateRentalDate(rentals);
+		if(check) {
 			System.out.println("Car Rental Date Updated..");
 			model.addAttribute("rentals", response);
-			return "/index";
+			return "manageBooking";
+		}else {
+			return "accountError";
 		}
 	}
 
@@ -157,31 +151,37 @@ public class ManageBookingController {
 
 	// When the user submits the form (Post Request)
 	@RequestMapping(value = "/updateReturnDate", method = RequestMethod.POST)
-	public String manageUpdateReturnPost(@Valid @ModelAttribute("rentals") Rentals rentals, BindingResult result,
+	public String manageUpdateReturnPost(@Valid @ModelAttribute("rentals") Rentals rentals,
 			Model model) {
-		// If there is an error
-		if (result.hasErrors()) {
-			// Return createAccount.jsp and display the errors
-			return "createAccount";
-		} else {
-
-			Accounts acc = new Accounts();
-			acc.setAccNo(response.getAccounts().getAccNo());
-			rentals.setAccounts(acc);
-
-			// sent the new rental to the jersey application
-			new HTTP_Requests().updateReturnDate(rentals);
+		
+		Accounts acc = new Accounts();
+		acc.setAccNo(response.getAccounts().getAccNo());
+		rentals.setAccounts(acc);
+		// sent the new rental to the jersey application
+		boolean check = new HTTP_Requests().updateReturnDate(rentals);
+		
+		if(check) {
 			System.out.println("Car Rental Date Updated..");
 			model.addAttribute("rentals", response);
-			return "index";
+			return "manageBooking";
+		}else {
+			return "accountError";
 		}
+		
+		
 	}
 
 	@RequestMapping(value = "/rentalDeleted", method = RequestMethod.GET)
 	public String deleteRental() {
 
-		new HTTP_Requests().deleteRental(response);
-		return "rentalDeleted";
+		boolean check = new HTTP_Requests().deleteRental(response);
+		
+		if(check) {
+			return "rentalDeleted";
+		}else {
+			return "accountError";
+		}
+		
 	}
 
 }
