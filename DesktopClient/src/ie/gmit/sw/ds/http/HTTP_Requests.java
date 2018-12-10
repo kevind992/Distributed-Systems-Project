@@ -218,7 +218,7 @@ public class HTTP_Requests {
 		StringReader sr1 = new StringReader(input);
 		Unmarshaller um1;
 		try {
-			JAXBContext jc = JAXBContext.newInstance("com.webclient.models");
+			JAXBContext jc = JAXBContext.newInstance("ie.gmit.sw.ds.models");
 			um1 = jc.createUnmarshaller();
 			StreamSource source1 = new StreamSource(sr1);
 			JAXBElement<Rentals> poElement1 = um1.unmarshal(source1, Rentals.class);
@@ -236,7 +236,7 @@ public class HTTP_Requests {
 		StringWriter sw = new StringWriter();
 		Marshaller m;
 		try {
-			JAXBContext jc = JAXBContext.newInstance("com.webclient.models");
+			JAXBContext jc = JAXBContext.newInstance("ie.gmit.sw.ds.models");
 			m = jc.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			m.marshal(po, sw);
