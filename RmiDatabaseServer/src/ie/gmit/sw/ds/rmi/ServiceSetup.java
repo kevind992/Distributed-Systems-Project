@@ -7,6 +7,7 @@ public class ServiceSetup {
 	
 	public static void main(String[] args) throws Exception{
 
+		// Code for starting up the RMI client
 		DatabaseService cbs = new DatabaseServiceImpl();
 		
 		LocateRegistry.createRegistry(1099);

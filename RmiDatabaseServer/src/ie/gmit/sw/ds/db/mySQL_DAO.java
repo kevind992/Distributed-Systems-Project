@@ -14,16 +14,20 @@ import ie.gmit.sw.ds.models.Rentals;
 
 public class mySQL_DAO implements mySQLDAOInterface {
 
+	// url to the database car_rental_booking_db
 	private String url = "jdbc:mysql://localhost:3306/car_rental_booking_db?useSSL=false";
 
+	// Method for getting all rentals
 	public ArrayList<Rentals> getRental() throws RemoteException {
 
 		ArrayList<Rentals> rentalList = new ArrayList<>();
 
 		try (
 
+				// Making the connection
 				Connection conn = DriverManager.getConnection(url, "root", "");
 				Statement stmt = conn.createStatement();) {
+			// Select statement
 			String strSelect = "select a.acc_no , a.first_name, a.surname, a.dob, a.address, "
 					+ "c.car_make, c.car_model, r.rental_date, r.return_date from rentals r "
 					+ "inner join accounts a on r.acc_no = a.acc_no inner join cars c "
@@ -37,6 +41,7 @@ public class mySQL_DAO implements mySQLDAOInterface {
 				Accounts accounts = new Accounts();
 				Cars cars = new Cars();
 
+				// Added the selected values to a rentals object
 				accounts.setAccNo(String.valueOf(rset.getInt("acc_no")));
 				accounts.setFname(rset.getString("first_name"));
 				accounts.setSurname(rset.getString("surname"));
@@ -48,7 +53,7 @@ public class mySQL_DAO implements mySQLDAOInterface {
 				rental.setReturnDate(rset.getString("return_date"));
 				rental.setAccounts(accounts);
 				rental.getCars().add(cars);
-
+				
 				rentalList.add(rental);
 			}
 
@@ -59,7 +64,8 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		System.out.println("Data successfully pull from db..");
 		return rentalList;
 	}
-
+	
+	// Method for getting all account numbers
 	public ArrayList<String> getAccounts() throws RemoteException {
 
 		ArrayList<String> accountList = new ArrayList<>();
@@ -89,7 +95,7 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		return accountList;
 
 	}
-	
+	// method for getting rental ids
 	public ArrayList<Integer> getRentalId() throws RemoteException {
 
 		ArrayList<Integer> idList = new ArrayList<>();
@@ -118,7 +124,8 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		System.out.println("Data successfully pull from db..");
 		return idList;
 	}
-
+	
+	// Method for getting all cars
 	public Rentals getCars() throws RemoteException {
 
 		Rentals rentals = new Rentals();
@@ -151,7 +158,8 @@ public class mySQL_DAO implements mySQLDAOInterface {
 		System.out.println("Data successfully pulled from db..");
 		return rentals;
 	}
-
+	
+	// method for executing a db update
 	public boolean updateDB(String statement) {
 
 		try (

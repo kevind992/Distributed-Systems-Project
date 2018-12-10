@@ -8,6 +8,9 @@ import ie.gmit.sw.ds.models.Rentals;
 
 public class DatabaseServiceImpl extends UnicastRemoteObject implements DatabaseService {
 
+	// Methods being implemented when called from the RMI client
+	
+	
 	private static final long serialVersionUID = 1L;
 
 	public DatabaseServiceImpl() throws RemoteException {
