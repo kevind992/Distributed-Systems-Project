@@ -7,6 +7,7 @@ To run this project it is recommended that you install the following software
 - Install [git](https://git-scm.com/)
 - Install [WAMP](https://sourceforge.net/projects/wampserver/)
 - Install [Eclipse JEE](https://www.eclipse.org/downloads/packages/release/2018-09/r/eclipse-ide-java-ee-developers)
+- Install [Tomcat 7](https://tomcat.apache.org/download-70.cgi)
 ## Git
 After you have completed installing the above software you can now clone down the repository. To do so open a terminal and navigate to where you wish to clone the repository and type the following
 ```sh
@@ -67,3 +68,20 @@ We now need to populate the three tables with some test data, to do so copy the 
     insert into accounts values(1020, 'Meghan', 'Smith', '1991-01-01', 'Oranmore, Co. Galway');
     insert into rentals values(45, 105, 1001, '2018-12-04','2018-12-30');
 ```
+## Running
+- To run the application you first need open Eclipse JEE. 
+- Once Eclipse is open click 'File' and then click 'Open Files from Filesystem...'
+- Navigate to where you cloned the repository and open one project at a time by repeating the above step. 
+- Once you have added all four projects you should see the four in the explorer to the left of the screen.
+- Depending on your java version you may need to change the java build path for each individual project.
+- Setup tomcat by clicking [here](https://help.eclipse.org/neon/index.jsp?topic=%2Forg.eclipse.stardust.docs.wst%2Fhtml%2Fwst-integration%2Fconfiguration.html)
+
+You should now be able to run the projects. 
+- First run the RmiDatabaseServer by navigating down to the package ie.gmit.sw.ds.rmi within the RmiDatabaseServer and right clicking on ServerSetup and run as 'Java Application'
+- Next run the RestfulWebService by right clicking on the project and click 'run as' & 'Run on Server'.
+
+You can now run either the Web Client or the Desktop Client. To run the Web Client 
+- Right click on CarBookingWebClient then click on 'run as' and then 'Spring Boot App'
+- Open a browser and in the addess bar type 'localhost:9090', the webapp should now be running. 
+- By clicking create booking you will be asked whether it is for a new customer or an existing customer. If you click new customer you will then need to create an account. If you click exisiting customer you can create a booking by filling the input boxes. User Account number **1010** for testing purposes.
+- By clicking manage booking you will be asked to enter the account number you wish to manage. Again use **1010** for testing purposes. If you enter a wrong account number you will be told. If successful you will be shown the rental. You can update the car, rental date or return date under that particular account number.
