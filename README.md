@@ -81,7 +81,18 @@ You should now be able to run the projects.
 - Next run the RestfulWebService by right clicking on the project and click 'run as' & 'Run on Server'.
 
 You can now run either the Web Client or the Desktop Client. To run the Web Client 
-- Right click on CarBookingWebClient then click on 'run as' and then 'Spring Boot App'
+- Right click on CarBookingWebClient then click on 'run as' and then 'Spring Boot App' if you have spring installed on eclipse otherwise navigate down to the package com.webclient right click on WebappApplication and click 'run as' and click 'Java Application' 
 - Open a browser and in the addess bar type 'localhost:9090', the webapp should now be running. 
-- By clicking create booking you will be asked whether it is for a new customer or an existing customer. If you click new customer you will then need to create an account. If you click exisiting customer you can create a booking by filling the input boxes. User Account number **1010** for testing purposes.
-- By clicking manage booking you will be asked to enter the account number you wish to manage. Again use **1010** for testing purposes. If you enter a wrong account number you will be told. If successful you will be shown the rental. You can update the car, rental date or return date under that particular account number.
+- By clicking **Create Booking** you will be asked whether it is for a new customer or an existing customer. If you click new customer you will then need to create an account. If you click exisiting customer you can create a booking by filling the input boxes. User Account number **1010** for testing purposes.
+- By clicking **Manage Booking** you will be asked to enter the account number you wish to manage. Again use **1010** for testing purposes. If you enter a wrong account number you will be told. If successful you will be shown the rental. You can update the car, rental date or return date under that particular account number.
+- By clicking the **View all Bookings** you will be able to view all the rentals that have been created. Before you can view the bookings you will have to put in a username and password. This has been set to username = 'user' and password has been set to 'user'. Once entered you will be able to view all users.
+- After viewing all booking if you click the **Logout** button you will have to re-enter your username and password if you wish to view all bookings again. 
+
+To Run the Desktop Client 
+- Right navigate to the package ie.gmit.sw.ds.gui and right click 'Runner', click 'run as' and 'Java Application'.
+- The options are the same the above Webapplication but instead of clicking links you need to enter the number of the option. 
+
+## Extra Functionality
+- I packaged the recourses into Jar files and War files the can be found [here](https://github.com/kevind992/Distributed-Systems-Project/tree/master/JAR-WAR)
+- I created a Desktop Client this can be found [here](https://github.com/kevind992/Distributed-Systems-Project/tree/master/DesktopClient)
+- I added an admin function for Viewing all Rentals. To access the admin fuction the user needs to enter a username and password.
