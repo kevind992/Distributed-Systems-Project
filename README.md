@@ -104,3 +104,6 @@ To Run the Desktop Client
 - I packaged the recourses into Jar files and War files the can be found [here](https://github.com/kevind992/Distributed-Systems-Project/tree/master/JAR-WAR)
 - I created a Desktop Client this can be found [here](https://github.com/kevind992/Distributed-Systems-Project/tree/master/DesktopClient)
 - I added an admin function for Viewing all Rentals. To access the admin fuction the user needs to enter a username and password.
+
+# Author
+- Kevin Delassus [kevind992](https://github.com/kevind992)
