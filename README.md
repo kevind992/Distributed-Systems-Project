@@ -7,6 +7,7 @@ My project is structured around my database having 3 tables.
 - Cars
 
 The application allows the user to read, create, update and delete rentals. An admin user can view all rentals in the system. 
+The user side of the application was made using Spring boot. I decided to use spring boot because I had used it for a pervious projects and enjoyed the implemation of it. 
 
 # Set-up
 ## Software
